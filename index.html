@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Nevesladia - Heroes</title>
+<style>
+body {
+  background: #0f0f13;
+  color: #fff;
+  font-family: Arial;
+  padding: 20px;
+}
+h1 { color: gold; }
+
+.card {
+  background: #1c1c24;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 10px;
+}
+
+button {
+  margin-top: 10px;
+  padding: 8px;
+  background: gold;
+  border: none;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Nevesladia - Heroes</h1>
+
+<input id="name" placeholder="Nome">
+<input id="level" type="number" placeholder="Level">
+
+<select id="classe">
+  <option>Knight</option>
+  <option>Paladin</option>
+  <option>Druid</option>
+  <option>Sorcerer</option>
+  <option>Monk</option>
+</select>
+
+<select id="mundo">
+  <option>Etherian</option>
+  <option>Auroria</option>
+  <option>Belaria</option>
+</select>
+
+<select id="arma"></select>
+
+<button onclick="addHero()">Adicionar Hero</button>
+
+<div id="lista"></div>
+
+<script>
+let heroes = JSON.parse(localStorage.getItem("heroes")) || [];
+
+function atualizarArma() {
+  const classe = document.getElementById("classe").value;
+  const arma = document.getElementById("arma");
+  arma.innerHTML = "";
+
+  let opcoes = [];
+
+  if (classe === "Knight") opcoes = ["Sword","Club","Axe"];
+  if (classe === "Paladin") opcoes = ["Bow","Crossbow"];
+  if (classe === "Druid") opcoes = ["Rod"];
+  if (classe === "Sorcerer") opcoes = ["Wand"];
+  if (classe === "Monk") opcoes = ["Claw"];
+
+  opcoes.forEach(o => {
+    let opt = document.createElement("option");
+    opt.textContent = o;
+    arma.appendChild(opt);
+  });
+}
+
+document.getElementById("classe").addEventListener("change", atualizarArma);
+atualizarArma();
+
+function addHero() {
+  const hero = {
+    name: document.getElementById("name").value,
+    level: document.getElementById("level").value,
+    classe: document.getElementById("classe").value,
+    mundo: document.getElementById("mundo").value,
+    arma: document.getElementById("arma").value
+  };
+
+  heroes.push(hero);
+  localStorage.setItem("heroes", JSON.stringify(heroes));
+  render();
+}
+
+function render() {
+  const lista = document.getElementById("lista");
+  lista.innerHTML = "";
+
+  heroes.forEach((h, i) => {
+    const div = document.createElement("div");
+    div.className = "card";
+
+    div.innerHTML = `
+      <b>${h.name}</b><br>
+      Level: ${h.level}<br>
+      Classe: ${h.classe}<br>
+      Mundo: ${h.mundo}<br>
+      Arma: ${h.arma}<br>
+      <button onclick="del(${i})">Excluir</button>
+    `;
+
+    lista.appendChild(div);
+  });
+}
+
+function del(i) {
+  heroes.splice(i, 1);
+  localStorage.setItem("heroes", JSON.stringify(heroes));
+  render();
+}
+
+render();
+</script>
+
+</body>
+</html>
