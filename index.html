@@ -6,62 +6,59 @@
   <title>Nevesladia</title>
   <style>
     :root {
-      --bg: #07111f;
-      --bg-2: #0b1c31;
-      --panel: rgba(10, 28, 49, 0.92);
-      --panel-2: rgba(13, 36, 61, 0.95);
-      --border: rgba(91, 180, 255, 0.22);
+      --bg: #06101d;
+      --bg2: #0b1c31;
+      --panel: rgba(10, 28, 49, 0.94);
+      --panel2: rgba(13, 36, 61, 0.96);
+      --border: rgba(110, 200, 255, 0.20);
       --text: #eaf4ff;
       --muted: #9fc4ea;
-      --gold: #f4cc67;
-      --blue: #6ec8ff;
-      --blue-2: #39b8ff;
-      --blue-soft: rgba(110, 200, 255, 0.12);
-      --danger: #ff6b7d;
-      --success: #7ef0c2;
-      --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      --gold: #f2c96b;
+      --blue: #76d0ff;
+      --blue2: #33b7ff;
+      --softBlue: rgba(118, 208, 255, 0.10);
+      --success: #88f0c8;
+      --danger: #ff8797;
+      --shadow: 0 12px 30px rgba(0,0,0,0.35);
       --radius: 18px;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
       color: var(--text);
       background:
-        radial-gradient(circle at top, rgba(34, 99, 180, 0.22), transparent 28%),
-        linear-gradient(180deg, #07111f 0%, #081527 35%, #050d18 100%);
+        radial-gradient(circle at top, rgba(41, 111, 196, 0.22), transparent 28%),
+        linear-gradient(180deg, #06101d 0%, #081424 35%, #040b14 100%);
       min-height: 100vh;
     }
 
     .app {
-      max-width: 1200px;
+      max-width: 1280px;
       margin: 0 auto;
       padding: 18px;
     }
 
     .topbar {
       display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
       gap: 14px;
-      margin-bottom: 18px;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
       padding: 18px 20px;
-      border: 1px solid var(--border);
       border-radius: 22px;
-      background: linear-gradient(180deg, rgba(9, 25, 43, 0.96), rgba(8, 20, 35, 0.96));
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(8, 22, 38, 0.97), rgba(8, 19, 33, 0.96));
       box-shadow: var(--shadow);
+      margin-bottom: 18px;
     }
 
     .brand h1 {
       margin: 0;
-      font-size: 28px;
       color: var(--gold);
-      letter-spacing: 0.4px;
+      font-size: 28px;
     }
 
     .brand p {
@@ -72,46 +69,44 @@
 
     .tabs {
       display: flex;
-      flex-wrap: wrap;
       gap: 10px;
+      flex-wrap: wrap;
     }
 
     .tab-btn {
       border: 1px solid var(--border);
-      background: rgba(110, 200, 255, 0.08);
+      background: rgba(118, 208, 255, 0.08);
       color: var(--blue);
       padding: 10px 16px;
       border-radius: 14px;
       cursor: pointer;
       font-weight: bold;
-      transition: 0.2s ease;
+      transition: .2s ease;
     }
 
-    .tab-btn:hover {
-      transform: translateY(-1px);
-      background: rgba(110, 200, 255, 0.14);
-    }
-
+    .tab-btn:hover { transform: translateY(-1px); }
     .tab-btn.active {
-      background: linear-gradient(180deg, rgba(64, 179, 255, 0.22), rgba(44, 120, 180, 0.18));
       color: white;
-      box-shadow: 0 0 0 1px rgba(110, 200, 255, 0.22) inset;
+      background: linear-gradient(180deg, rgba(61, 179, 255, 0.26), rgba(36, 108, 170, 0.18));
+      box-shadow: 0 0 0 1px rgba(118, 208, 255, 0.18) inset;
     }
 
     .panel {
       border: 1px solid var(--border);
       border-radius: 22px;
-      background: linear-gradient(180deg, rgba(9, 23, 39, 0.97), rgba(10, 27, 47, 0.96));
+      background: linear-gradient(180deg, rgba(7, 21, 36, 0.98), rgba(9, 25, 43, 0.96));
       box-shadow: var(--shadow);
       padding: 18px;
     }
 
+    .hidden { display: none !important; }
+
     .section-header {
       display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
       gap: 12px;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
       margin-bottom: 18px;
     }
 
@@ -135,11 +130,13 @@
 
     .form-card,
     .info-card,
+    .hero-card,
+    .room-card,
     .task-card,
-    .hero-card {
-      background: linear-gradient(180deg, rgba(10, 28, 49, 0.95), rgba(11, 31, 53, 0.95));
+    .reward-card {
       border: 1px solid var(--border);
       border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(10, 28, 49, 0.95), rgba(11, 31, 53, 0.96));
       box-shadow: var(--shadow);
     }
 
@@ -151,17 +148,13 @@
     }
 
     .form-card h3,
-    .list-title,
-    .task-title {
+    .list-title {
       margin: 0 0 14px;
       color: var(--blue);
       font-size: 18px;
     }
 
-    .form-grid {
-      display: grid;
-      gap: 12px;
-    }
+    .form-grid { display: grid; gap: 12px; }
 
     label {
       display: block;
@@ -169,39 +162,33 @@
       font-size: 13px;
       color: var(--blue);
       font-weight: bold;
-      letter-spacing: 0.2px;
     }
 
-    input,
-    select,
-    textarea {
+    input, select, textarea {
       width: 100%;
-      border: 1px solid rgba(110, 200, 255, 0.2);
-      background: rgba(5, 18, 31, 0.78);
+      border: 1px solid rgba(118,208,255,0.22);
+      background: rgba(4, 16, 28, 0.82);
       color: white;
       border-radius: 12px;
-      padding: 12px 12px;
+      padding: 12px;
       font-size: 14px;
       outline: none;
     }
 
-    input:focus,
-    select:focus,
-    textarea:focus {
-      border-color: rgba(110, 200, 255, 0.55);
-      box-shadow: 0 0 0 3px rgba(57, 184, 255, 0.12);
+    input:focus, select:focus, textarea:focus {
+      border-color: rgba(118,208,255,0.52);
+      box-shadow: 0 0 0 3px rgba(51,183,255,0.12);
     }
 
     textarea {
       resize: vertical;
-      min-height: 84px;
+      min-height: 80px;
     }
 
     .actions {
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
-      margin-top: 6px;
     }
 
     .btn {
@@ -210,54 +197,28 @@
       padding: 12px 16px;
       font-weight: bold;
       cursor: pointer;
-      transition: 0.2s ease;
+      transition: .2s ease;
     }
 
-    .btn:hover {
-      transform: translateY(-1px);
-    }
+    .btn:hover { transform: translateY(-1px); }
 
     .btn-primary {
-      background: linear-gradient(180deg, #47bfff, #2396de);
+      background: linear-gradient(180deg, #49c0ff, #2497df);
       color: white;
     }
 
     .btn-secondary {
-      background: rgba(110, 200, 255, 0.12);
+      background: rgba(118,208,255,0.10);
       color: var(--blue);
       border: 1px solid var(--border);
     }
 
-    .btn-danger {
-      background: rgba(255, 107, 125, 0.14);
-      color: #ff93a0;
-      border: 1px solid rgba(255, 107, 125, 0.2);
-    }
-
-    .hero-list-wrap {
-      display: grid;
-      gap: 14px;
-    }
-
-    .toolbar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 6px;
-    }
-
-    .toolbar .search {
-      flex: 1;
-      min-width: 220px;
-    }
+    .hero-list-wrap { display: grid; gap: 14px; }
 
     .stats-row {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 12px;
-      margin-bottom: 14px;
     }
 
     .info-card {
@@ -276,9 +237,19 @@
       font-size: 13px;
     }
 
+    .toolbar {
+      display: flex;
+      gap: 12px;
+      justify-content: space-between;
+      align-items: end;
+      flex-wrap: wrap;
+    }
+
+    .toolbar .search { flex: 1; min-width: 220px; }
+
     .hero-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 14px;
     }
 
@@ -291,18 +262,18 @@
     .hero-card::after {
       content: "";
       position: absolute;
-      inset: auto -40px -40px auto;
+      right: -30px;
+      bottom: -30px;
       width: 120px;
       height: 120px;
-      background: radial-gradient(circle, rgba(57,184,255,0.16), transparent 70%);
+      background: radial-gradient(circle, rgba(51,183,255,0.18), transparent 70%);
       pointer-events: none;
     }
 
     .hero-name {
-      margin: 0 0 8px;
-      color: white;
+      margin: 0 0 10px;
       font-size: 22px;
-      line-height: 1.2;
+      color: white;
     }
 
     .hero-meta {
@@ -313,13 +284,12 @@
 
     .meta-line {
       display: flex;
-      align-items: center;
       justify-content: space-between;
       gap: 10px;
-      padding: 8px 10px;
+      padding: 9px 10px;
       border-radius: 12px;
-      background: rgba(110, 200, 255, 0.06);
-      border: 1px solid rgba(110, 200, 255, 0.08);
+      background: rgba(118,208,255,0.06);
+      border: 1px solid rgba(118,208,255,0.08);
     }
 
     .meta-label {
@@ -335,13 +305,12 @@
     }
 
     .hero-notes {
-      margin-top: 12px;
       padding: 12px;
       border-radius: 12px;
       background: rgba(255,255,255,0.03);
       color: var(--muted);
       font-size: 13px;
-      min-height: 48px;
+      min-height: 50px;
     }
 
     .card-actions {
@@ -360,59 +329,160 @@
     }
 
     .edit-btn {
-      background: rgba(110, 200, 255, 0.14);
+      background: rgba(118,208,255,0.12);
       color: var(--blue);
       border: 1px solid var(--border);
     }
 
     .delete-btn {
-      background: rgba(255, 107, 125, 0.14);
-      color: #ff97a4;
-      border: 1px solid rgba(255, 107, 125, 0.2);
+      background: rgba(255,135,151,0.12);
+      color: var(--danger);
+      border: 1px solid rgba(255,135,151,0.18);
     }
+
+    .message {
+      display: none;
+      margin-bottom: 14px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: rgba(136,240,200,0.10);
+      color: var(--success);
+      border: 1px solid rgba(136,240,200,0.18);
+      font-size: 14px;
+    }
+
+    .message.show { display: block; }
 
     .empty-state {
       padding: 28px 18px;
       text-align: center;
       color: var(--muted);
-      border: 1px dashed rgba(110, 200, 255, 0.18);
+      border: 1px dashed rgba(118,208,255,0.18);
       border-radius: 18px;
-      background: rgba(110, 200, 255, 0.03);
+      background: rgba(118,208,255,0.03);
     }
 
-    .linked-layout {
+    .rooms-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 12px;
+      margin-bottom: 18px;
     }
 
-    .task-card {
-      padding: 16px;
+    .room-card {
+      padding: 14px;
+      cursor: pointer;
+      transition: .2s ease;
     }
 
-    .task-title {
+    .room-card:hover { transform: translateY(-1px); }
+
+    .room-card.active {
+      border-color: rgba(242,201,107,0.8);
+      box-shadow: 0 0 0 1px rgba(242,201,107,0.2) inset, var(--shadow);
+    }
+
+    .room-title {
+      margin: 0 0 6px;
       color: white;
-      margin-bottom: 8px;
-      font-size: 20px;
+      font-size: 18px;
     }
 
-    .task-desc {
+    .room-subtitle {
       color: var(--muted);
-      font-size: 14px;
-      margin-bottom: 14px;
+      font-size: 13px;
     }
+
+    .lt-summary {
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(118,208,255,0.04);
+      border: 1px solid rgba(118,208,255,0.10);
+      margin-bottom: 18px;
+    }
+
+    .lt-summary h3 {
+      margin: 0 0 10px;
+      color: var(--blue);
+      font-size: 18px;
+    }
+
+    .tasks-table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: rgba(6, 18, 32, 0.62);
+      margin-bottom: 18px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 980px;
+    }
+
+    thead th {
+      text-align: left;
+      padding: 14px 12px;
+      background: rgba(118,208,255,0.08);
+      color: white;
+      font-size: 14px;
+    }
+
+    tbody td {
+      padding: 14px 12px;
+      border-top: 1px solid rgba(118,208,255,0.08);
+      vertical-align: middle;
+      font-size: 14px;
+    }
+
+    .monster-cell {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .monster-gif {
+      width: 42px;
+      height: 42px;
+      object-fit: contain;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.04);
+      padding: 4px;
+      border: 1px solid rgba(118,208,255,0.12);
+    }
+
+    .monster-name {
+      color: white;
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+
+    .monster-related {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .rewards {
+      display: grid;
+      gap: 6px;
+    }
+
+    .reward-green { color: #79f1bf; }
+    .reward-red { color: #ff8e9b; }
 
     .progress-wrap {
-      margin: 12px 0;
+      min-width: 180px;
     }
 
-    .progress-label {
+    .progress-top {
       display: flex;
       justify-content: space-between;
-      gap: 10px;
-      font-size: 13px;
-      color: var(--blue);
+      gap: 8px;
       margin-bottom: 6px;
+      font-size: 12px;
+      color: var(--blue);
     }
 
     .progress-bar {
@@ -426,69 +496,48 @@
     .progress-fill {
       height: 100%;
       border-radius: 999px;
-      background: linear-gradient(90deg, #4ec8ff, #1e8fd8);
+      background: linear-gradient(90deg, #5bc8ff, #2297e0);
     }
 
-    .pill {
+    .ok-badge {
       display: inline-block;
       padding: 7px 10px;
       border-radius: 999px;
       font-size: 12px;
       font-weight: bold;
-      margin-right: 6px;
-      margin-bottom: 6px;
-      background: rgba(110, 200, 255, 0.1);
+      background: rgba(91,200,255,0.12);
       color: var(--blue);
-      border: 1px solid rgba(110, 200, 255, 0.16);
+      border: 1px solid rgba(91,200,255,0.18);
     }
 
-    .status {
-      display: inline-block;
-      margin-top: 8px;
-      padding: 7px 10px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: bold;
+    .rewards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 12px;
     }
 
-    .status.active {
-      background: rgba(110, 200, 255, 0.12);
-      color: var(--blue);
+    .reward-card {
+      padding: 14px;
+      text-align: center;
     }
 
-    .status.done {
-      background: rgba(126, 240, 194, 0.12);
-      color: var(--success);
-    }
-
-    .status.locked {
-      background: rgba(255,255,255,0.08);
-      color: #c5d5e6;
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
-    .message {
-      margin-bottom: 14px;
-      padding: 12px 14px;
+    .reward-card img {
+      width: 64px;
+      height: 64px;
+      object-fit: contain;
+      margin-bottom: 10px;
       border-radius: 12px;
+      background: rgba(255,255,255,0.03);
+      padding: 6px;
+    }
+
+    .reward-card div {
+      color: white;
       font-size: 14px;
-      display: none;
+      line-height: 1.35;
     }
 
-    .message.show {
-      display: block;
-    }
-
-    .message.success {
-      background: rgba(126, 240, 194, 0.12);
-      color: var(--success);
-      border: 1px solid rgba(126, 240, 194, 0.2);
-    }
-
-    @media (max-width: 920px) {
+    @media (max-width: 960px) {
       .hero-layout {
         grid-template-columns: 1fr;
       }
@@ -503,21 +552,9 @@
     }
 
     @media (max-width: 560px) {
-      .topbar {
-        padding: 16px;
-      }
-
-      .brand h1 {
-        font-size: 24px;
-      }
-
-      .section-title {
-        font-size: 22px;
-      }
-
-      .hero-name {
-        font-size: 20px;
-      }
+      .brand h1 { font-size: 24px; }
+      .section-title { font-size: 22px; }
+      .hero-name { font-size: 20px; }
     }
   </style>
 </head>
@@ -539,11 +576,11 @@
       <div class="section-header">
         <div>
           <h2 class="section-title">Heroes</h2>
-          <p class="section-subtitle">Gerencie seus personagens do RubinOT com visual mais limpo, bonito e permanente.</p>
+          <p class="section-subtitle">Cadastre seus personagens, classes, especializações e mundos com tipo de PvP.</p>
         </div>
       </div>
 
-      <div id="messageBox" class="message success"></div>
+      <div id="messageBox" class="message"></div>
 
       <div class="hero-layout">
         <div class="form-card">
@@ -552,12 +589,12 @@
           <div class="form-grid">
             <div>
               <label for="heroName">Nome do personagem</label>
-              <input id="heroName" type="text" placeholder="Ex: Salmo Bem" />
+              <input id="heroName" type="text" placeholder="Ex: Salmo Bem">
             </div>
 
             <div>
               <label for="heroLevel">Level</label>
-              <input id="heroLevel" type="number" min="1" placeholder="Ex: 112" />
+              <input id="heroLevel" type="number" min="1" placeholder="Ex: 112">
             </div>
 
             <div>
@@ -571,13 +608,18 @@
             </div>
 
             <div>
+              <label for="worldPvp">Tipo de PvP do mundo</label>
+              <input id="worldPvp" type="text" readonly>
+            </div>
+
+            <div>
               <label for="heroWeapon">Especialização</label>
               <select id="heroWeapon"></select>
             </div>
 
             <div>
               <label for="heroNotes">Observações</label>
-              <textarea id="heroNotes" placeholder="Ex: Hunt favorita, build, foco de profit..."></textarea>
+              <textarea id="heroNotes" placeholder="Ex: Hunt favorita, build, foco, observações..."></textarea>
             </div>
 
             <div class="actions">
@@ -606,7 +648,7 @@
           <div class="toolbar">
             <div class="search">
               <label for="searchHero">Pesquisar Hero</label>
-              <input id="searchHero" type="text" placeholder="Digite o nome do personagem..." />
+              <input id="searchHero" type="text" placeholder="Pesquisar por nome, classe ou mundo">
             </div>
           </div>
 
@@ -620,15 +662,49 @@
       <div class="section-header">
         <div>
           <h2 class="section-title">Linked Tasks</h2>
-          <p class="section-subtitle">Estrutura inicial da aba já criada para começarmos a montar as tasks depois.</p>
+          <p class="section-subtitle">Primeira sala montada: Lothlorien's Room.</p>
         </div>
       </div>
 
-      <div class="linked-layout" id="tasksList"></div>
+      <div class="rooms-grid" id="roomsGrid"></div>
+
+      <div class="lt-summary">
+        <h3 id="roomHeader">Lothlorien's Room</h3>
+        <div id="roomText">Selecione uma sala para visualizar as tasks.</div>
+      </div>
+
+      <div class="tasks-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Nº</th>
+              <th>Task</th>
+              <th>Quantidade</th>
+              <th>Criaturas</th>
+              <th>Recompensas</th>
+              <th>Progresso do Hero</th>
+            </tr>
+          </thead>
+          <tbody id="tasksTableBody"></tbody>
+        </table>
+      </div>
+
+      <div class="section-header" style="margin-top:8px;">
+        <div>
+          <h2 class="section-title" style="font-size:20px;">Recompensas da Sala</h2>
+          <p class="section-subtitle">Ao finalizar todas as tasks da sala, o personagem pode receber uma das recompensas abaixo.</p>
+        </div>
+      </div>
+
+      <div class="rewards-grid" id="roomRewards"></div>
     </div>
   </div>
 
   <script>
+    const heroesKey = "heroes";
+    const currentHeroKey = "currentHeroName";
+    const tasksProgressKey = "linkedTaskProgress";
+
     const classes = {
       Knight: ["Sword", "Club", "Axe"],
       Paladin: ["Bow", "Crossbow"],
@@ -638,56 +714,274 @@
     };
 
     const worlds = [
-      "Auroria",
-      "Belaria",
-      "Bellum",
-      "Cellenium",
-      "Divinian",
-      "Elysian",
-      "Etherian",
-      "Halorian",
-      "Lunarian",
-      "Mystian",
-      "Serenian",
-      "Solarian",
-      "Spectrum",
-      "Tenebrium",
-      "Vesperia"
+      { name: "Auroria", pvp: "Open PvP" },
+      { name: "Belaria", pvp: "Open PvP" },
+      { name: "Bellum", pvp: "Optional PvP" },
+      { name: "Cellenium", pvp: "Optional PvP" },
+      { name: "Divinian", pvp: "Retro PvP" },
+      { name: "Elysian", pvp: "Retro PvP" },
+      { name: "Etherian", pvp: "Retro PvP" },
+      { name: "Halorian", pvp: "Retro PvP" },
+      { name: "Lunarian", pvp: "Retro PvP" },
+      { name: "Mystian", pvp: "Retro PvP" },
+      { name: "Serenian", pvp: "Retro PvP" },
+      { name: "Solarian", pvp: "Retro PvP" },
+      { name: "Spectrum", pvp: "Optional PvP" },
+      { name: "Tenebrium", pvp: "Optional PvP" },
+      { name: "Vesperia", pvp: "Open PvP" }
     ];
 
-    const tasksSeed = [
+    const roomData = [
       {
-        title: "Dragon Watch",
-        desc: "Task inicial voltada para monitorar progresso de criaturas dracônicas e preparar conexão futura com bestiário.",
-        progress: 28,
-        status: "active",
-        tags: ["Dragon Lord", "Frost Dragon", "Undead Dragon"]
+        id: "lothlorien",
+        name: "Lothlorien's Room",
+        desc: "Primeira sala das Linked Tasks, com 20 tasks e recompensas finais.",
+        rewards: [
+          { name: "Lothlorien Tapestry", img: "https://static.wikia.nocookie.net/tibia/images/7/7f/Scroll.gif" },
+          { name: "Lothlorien Backpack", img: "https://static.wikia.nocookie.net/tibia/images/9/93/Backpack.gif" },
+          { name: "Lothlorien Stone", img: "https://static.wikia.nocookie.net/tibia/images/f/f7/Blue_Gem.gif" },
+          { name: "Mini Obelisk", img: "https://static.wikia.nocookie.net/tibia/images/e/e2/Stone_Heraldic_Obelisk.gif" },
+          { name: "Stone of Ascension", img: "https://static.wikia.nocookie.net/tibia/images/0/05/Small_Stone.gif" },
+          { name: "Boosted Exercise Present", img: "https://static.wikia.nocookie.net/tibia/images/1/11/Wrapped_Present.gif" },
+          { name: "Roulette Coin", img: "https://static.wikia.nocookie.net/tibia/images/0/08/Gold_Coin.gif" },
+          { name: "Mystic Bag", img: "https://static.wikia.nocookie.net/tibia/images/8/87/Blue_Backpack.gif" },
+          { name: "Liquid Dust", img: "https://static.wikia.nocookie.net/tibia/images/3/32/Small_Flask_of_Eyedrops.gif" },
+          { name: "Bless Scroll", img: "https://static.wikia.nocookie.net/tibia/images/5/5f/Scroll_of_Ascension.gif" }
+        ],
+        tasks: [
+          {
+            no: 1,
+            key: "goblin",
+            task: "Goblin",
+            qty: 100,
+            related: "Goblin",
+            monsterImg: "https://static.wikia.nocookie.net/tibia/images/4/4f/Goblin.gif",
+            rewards: ["5.000 EXP x Rate", "10.000 Gold Coins"],
+            repeatReward: "4.000 EXP x Rate"
+          },
+          {
+            no: 2,
+            key: "troll",
+            task: "Troll",
+            qty: 100,
+            related: "Troll, Swamp Troll, Frost Troll, Island Troll",
+            monsterImg: "https://static.wikia.nocookie.net/tibia/images/a/a3/Troll.gif",
+            rewards: ["7.000 EXP x Rate", "10.000 Gold Coins"],
+            repeatReward: "5.000 EXP x Rate"
+          },
+          {
+            no: 3,
+            key: "rotworm",
+            task: "Rotworm",
+            qty: 200,
+            related: "Rotworm, Carrion Worm",
+            monsterImg: "https://static.wikia.nocookie.net/tibia/images/3/30/Rotworm.gif",
+            rewards: ["10.000 EXP x Rate", "20.000 Gold Coins"],
+            repeatReward: "10.000 Gold Coins"
+          },
+          {
+            no: 4,
+            key: "minotaur",
+            task: "Minotaur",
+            qty: 200,
+            related: "Minotaur, Minotaur Archer, Minotaur Guard, Minotaur Mage",
+            monsterImg: "https://static.wikia.nocookie.net/tibia/images/a/a5/Minotaur.gif",
+            rewards: ["15.000 EXP x Rate"],
+            repeatReward: "11.000 EXP x Rate"
+          },
+          {
+            no: 5,
+            key: "dwarf",
+            task: "Dwarf",
+            qty: 300,
+            related: "Dwarf, Dwarf Soldier, Dwarf Guard, Dwarf Geomancer",
+            monsterImg: "https://static.wikia.nocookie.net/tibia/images/9/9a/Dwarf.gif",
+            rewards: ["1x Exercise Weapon (3.600 Charges)"],
+            repeatReward: "13.000 EXP x Rate"
+          },
+          {
+            no: 6,
+            key: "dworc",
+            task: "Dworc",
+            qty: 300,
+            related: "Dworc Venomsniper, Dworc Voodoomaster, Dworc Fleshhunter",
+            monsterImg: "https://static.wikia.nocookie.net/tibia/images/8/8f/Dworc_Fleshhunter.gif",
+            rewards: ["50.000 Gold Coins"],
+            repeatReward: "20.000 Gold Coins"
+          },
+          {
+            no: 7,
+            key: "orc",
+            task: "Orc",
+            qty: 300,
+            related: "Orc, Orc Spearman, Orc Warrior, Orc Rider, Orc Shaman, Orc Berserker, Orc Leader, Orc Warlord",
+            monsterImg: "https://static.wikia.nocookie.net/tibia/images/c/c0/Orc.gif",
+            rewards: ["20.000 EXP x Rate"],
+            repeatReward: "15.000 EXP x Rate"
+          },
+          {
+            no: 8,
+            key: "elf",
+            task: "Elf",
+            qty: 400,
+            related: "Elf, Elf Scout, Elf Arcanist",
+            monsterImg: "https://static.wikia.nocookie.net/tibia/images/3/38/Elf.gif",
+            rewards: ["25.000 EXP x Rate"],
+            repeatReward: "18.000 EXP x Rate"
+          },
+          {
+            no: 9,
+            key: "cyclops",
+            task: "Cyclops",
+            qty: 400,
+            related: "Cyclops, Cyclops Drone, Cyclops Smith",
+            monsterImg: "https://static.wikia.nocookie.net/tibia/images/a/ac/Cyclops.gif",
+            rewards: ["30.000 EXP x Rate"],
+            repeatReward: "20.000 EXP x Rate"
+          },
+          {
+            no: 10,
+            key: "amazon",
+            task: "Amazon",
+            qty: 400,
+            related: "Amazon, Valkyrie",
+            monsterImg: "https://static.wikia.nocookie.net/tibia/images/d/d8/Amazon.gif",
+            rewards: ["35.000 Gold Coins"],
+            repeatReward: "25.000 Gold Coins"
+          },
+          {
+            no: 11,
+            key: "ghoul",
+            task: "Ghoul",
+            qty: 500,
+            related: "Ghoul, Crypt Shambler",
+            monsterImg: "https://static.wikia.nocookie.net/tibia/images/c/c7/Ghoul.gif",
+            rewards: ["40.000 EXP x Rate"],
+            repeatReward: "30.000 EXP x Rate"
+          },
+          {
+            no: 12,
+            key: "mummy",
+            task: "Mummy",
+            qty: 500,
+            related: "Mummy",
+            monsterImg: "https://static.wikia.nocookie.net/tibia/images/d/db/Mummy.gif",
+            rewards: ["45.000 EXP x Rate"],
+            repeatReward: "35.000 EXP x Rate"
+          },
+          {
+            no: 13,
+            key: "scarab",
+            task: "Scarab",
+            qty: 500,
+            related: "Scarab, Ancient Scarab",
+            monsterImg: "https://static.wikia.nocookie.net/tibia/images/7/7c/Scarab.gif",
+            rewards: ["50.000 EXP x Rate"],
+            repeatReward: "38.000 EXP x Rate"
+          },
+          {
+            no: 14,
+            key: "tarantula",
+            task: "Tarantula",
+            qty: 600,
+            related: "Tarantula",
+            monsterImg: "https://static.wikia.nocookie.net/tibia/images/e/e4/Tarantula.gif",
+            rewards: ["55.000 EXP x Rate"],
+            repeatReward: "40.000 EXP x Rate"
+          },
+          {
+            no: 15,
+            key: "stonegolem",
+            task: "Stone Golem",
+            qty: 600,
+            related: "Stone Golem",
+            monsterImg: "https://static.wikia.nocookie.net/tibia/images/5/50/Stone_Golem.gif",
+            rewards: ["60.000 EXP x Rate"],
+            repeatReward: "45.000 EXP x Rate"
+          },
+          {
+            no: 16,
+            key: "dragon",
+            task: "Dragon",
+            qty: 700,
+            related: "Dragon, Dragon Hatchling, Dragon Lord Hatchling",
+            monsterImg: "https://static.wikia.nocookie.net/tibia/images/e/ef/Dragon.gif",
+            rewards: ["70.000 EXP x Rate"],
+            repeatReward: "50.000 EXP x Rate"
+          },
+          {
+            no: 17,
+            key: "dragonlord",
+            task: "Dragon Lord",
+            qty: 800,
+            related: "Dragon Lord",
+            monsterImg: "https://static.wikia.nocookie.net/tibia/images/4/4f/Dragon_Lord.gif",
+            rewards: ["90.000 EXP x Rate"],
+            repeatReward: "70.000 EXP x Rate"
+          },
+          {
+            no: 18,
+            key: "giantspider",
+            task: "Giant Spider",
+            qty: 800,
+            related: "Giant Spider",
+            monsterImg: "https://static.wikia.nocookie.net/tibia/images/8/84/Giant_Spider.gif",
+            rewards: ["100.000 EXP x Rate"],
+            repeatReward: "80.000 EXP x Rate"
+          },
+          {
+            no: 19,
+            key: "behemoth",
+            task: "Behemoth",
+            qty: 900,
+            related: "Behemoth",
+            monsterImg: "https://static.wikia.nocookie.net/tibia/images/0/08/Behemoth.gif",
+            rewards: ["120.000 EXP x Rate"],
+            repeatReward: "90.000 EXP x Rate"
+          },
+          {
+            no: 20,
+            key: "hightier",
+            task: "Elite Creatures",
+            qty: 1000,
+            related: "Minotaur Amazon, Worn Priestess, Execowtioner, Moohtant",
+            monsterImg: "https://static.wikia.nocookie.net/tibia/images/6/62/Minotaur_Amazon.gif",
+            rewards: ["1x Rare Room Reward Roll"],
+            repeatReward: "1.000.000 EXP x Rate"
+          }
+        ]
       },
       {
-        title: "Demonic Pressure",
-        desc: "Estrutura base de linked task para hunts demoníacas, com foco em progresso integrado e metas futuras.",
-        progress: 12,
-        status: "active",
-        tags: ["Demon", "Grim Reaper", "Hellhound"]
+        id: "executioner",
+        name: "Executioner's Room",
+        desc: "Sala preparada para expansão futura."
       },
       {
-        title: "Depths of Etherian",
-        desc: "Task preparada para expansão futura com progresso ligado a spawns de profundidade e criaturas mágicas.",
-        progress: 0,
-        status: "locked",
-        tags: ["Hydra", "Serpent Spawn", "Medusa"]
+        id: "morgul",
+        name: "Morgul's Room",
+        desc: "Sala preparada para expansão futura."
+      },
+      {
+        id: "corrupted",
+        name: "Corrupted's Room",
+        desc: "Sala preparada para expansão futura."
+      },
+      {
+        id: "nzoth",
+        name: "N'Zoth's Room",
+        desc: "Sala preparada para expansão futura."
       }
     ];
 
-    const heroesKey = "heroes";
-    const tasksKey = "linkedTasks";
     let heroes = [];
     let editingId = null;
+    let selectedRoomId = "lothlorien";
 
     const heroName = document.getElementById("heroName");
     const heroLevel = document.getElementById("heroLevel");
     const heroClass = document.getElementById("heroClass");
     const heroWorld = document.getElementById("heroWorld");
+    const worldPvp = document.getElementById("worldPvp");
     const heroWeapon = document.getElementById("heroWeapon");
     const heroNotes = document.getElementById("heroNotes");
     const heroesList = document.getElementById("heroesList");
@@ -696,13 +990,21 @@
     const clearBtn = document.getElementById("clearBtn");
     const searchHero = document.getElementById("searchHero");
     const messageBox = document.getElementById("messageBox");
+    const roomsGrid = document.getElementById("roomsGrid");
+    const roomHeader = document.getElementById("roomHeader");
+    const roomText = document.getElementById("roomText");
+    const tasksTableBody = document.getElementById("tasksTableBody");
+    const roomRewards = document.getElementById("roomRewards");
 
     function showMessage(text) {
       messageBox.textContent = text;
       messageBox.classList.add("show");
-      setTimeout(() => {
-        messageBox.classList.remove("show");
-      }, 2200);
+      setTimeout(() => messageBox.classList.remove("show"), 2200);
+    }
+
+    function getWorldPvp(worldName) {
+      const found = worlds.find(w => w.name === worldName);
+      return found ? found.pvp : "-";
     }
 
     function populateClasses() {
@@ -719,17 +1021,21 @@
       heroWorld.innerHTML = "";
       worlds.forEach(world => {
         const option = document.createElement("option");
-        option.value = world;
-        option.textContent = world === "Etherian" ? "Etherian (Etérea)" : world;
+        option.value = world.name;
+        option.textContent = world.name === "Etherian" ? "Etherian (Etérea)" : world.name;
         heroWorld.appendChild(option);
       });
+      updateWorldPvp();
+    }
+
+    function updateWorldPvp() {
+      worldPvp.value = getWorldPvp(heroWorld.value);
     }
 
     function updateWeapons(selectedWeapon = "") {
       const currentClass = heroClass.value;
       const weapons = classes[currentClass] || [];
       heroWeapon.innerHTML = "";
-
       weapons.forEach(item => {
         const option = document.createElement("option");
         option.value = item;
@@ -751,6 +1057,18 @@
       localStorage.setItem(heroesKey, JSON.stringify(heroes));
     }
 
+    function getProgressData() {
+      try {
+        return JSON.parse(localStorage.getItem(tasksProgressKey)) || {};
+      } catch {
+        return {};
+      }
+    }
+
+    function saveProgressData(data) {
+      localStorage.setItem(tasksProgressKey, JSON.stringify(data));
+    }
+
     function ensureInitialHero() {
       heroes = getSavedHeroes();
       if (!heroes.length) {
@@ -766,14 +1084,19 @@
           }
         ];
         saveHeroes();
+        localStorage.setItem(currentHeroKey, "Salmo Bem");
       }
     }
 
-    function ensureTasks() {
-      const saved = localStorage.getItem(tasksKey);
-      if (!saved) {
-        localStorage.setItem(tasksKey, JSON.stringify(tasksSeed));
-      }
+    function getCurrentHeroName() {
+      const saved = localStorage.getItem(currentHeroKey);
+      if (saved) return saved;
+      if (heroes[0]) return heroes[0].name;
+      return null;
+    }
+
+    function setCurrentHeroName(name) {
+      localStorage.setItem(currentHeroKey, name);
     }
 
     function resetForm() {
@@ -785,6 +1108,7 @@
       heroClass.value = "Knight";
       updateWeapons();
       heroWorld.value = "Etherian";
+      updateWorldPvp();
       heroNotes.value = "";
     }
 
@@ -797,6 +1121,7 @@
       heroClass.value = hero.classe;
       updateWeapons(hero.weapon);
       heroWorld.value = hero.world;
+      updateWorldPvp();
       heroNotes.value = hero.notes || "";
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
@@ -813,7 +1138,6 @@
 
     function renderStats() {
       document.getElementById("totalHeroes").textContent = heroes.length;
-
       const highest = heroes.length ? Math.max(...heroes.map(h => Number(h.level) || 0)) : 0;
       document.getElementById("highestLevel").textContent = highest;
 
@@ -835,25 +1159,22 @@
           bestCount = countByWorld[world];
         }
       }
-
       document.getElementById("currentWorld").textContent = bestWorld;
     }
 
     function renderHeroes() {
       const filtered = getFilteredHeroes();
+      const currentHero = getCurrentHeroName();
       heroesList.innerHTML = "";
 
       if (!filtered.length) {
-        heroesList.innerHTML = `
-          <div class="empty-state">
-            Nenhum hero encontrado.
-          </div>
-        `;
+        heroesList.innerHTML = `<div class="empty-state">Nenhum hero encontrado.</div>`;
         renderStats();
         return;
       }
 
       filtered.forEach(hero => {
+        const isCurrent = currentHero === hero.name;
         const card = document.createElement("div");
         card.className = "hero-card";
         card.innerHTML = `
@@ -876,6 +1197,11 @@
             </div>
 
             <div class="meta-line">
+              <span class="meta-label">PvP</span>
+              <span class="meta-value">${getWorldPvp(hero.world)}</span>
+            </div>
+
+            <div class="meta-line">
               <span class="meta-label">Especialização</span>
               <span class="meta-value">${hero.weapon}</span>
             </div>
@@ -885,6 +1211,7 @@
 
           <div class="card-actions">
             <button class="small-btn edit-btn" onclick="editHero(${hero.id})">Editar</button>
+            <button class="small-btn edit-btn" onclick="useHero('${hero.name.replace(/'/g, "\\'")}')">${isCurrent ? "Hero Ativo" : "Usar Hero"}</button>
             <button class="small-btn delete-btn" onclick="deleteHero(${hero.id})">Excluir</button>
           </div>
         `;
@@ -892,22 +1219,6 @@
       });
 
       renderStats();
-    }
-
-    function editHero(id) {
-      const hero = heroes.find(h => h.id === id);
-      if (!hero) return;
-      fillForm(hero);
-    }
-
-    function deleteHero(id) {
-      const ok = confirm("Tem certeza que deseja excluir este hero?");
-      if (!ok) return;
-      heroes = heroes.filter(h => h.id !== id);
-      saveHeroes();
-      renderHeroes();
-      showMessage("Hero excluído com sucesso.");
-      if (editingId === id) resetForm();
     }
 
     function handleSaveHero() {
@@ -929,13 +1240,20 @@
       }
 
       if (editingId) {
+        const oldHero = heroes.find(h => h.id === editingId);
         heroes = heroes.map(hero =>
           hero.id === editingId
             ? { ...hero, name, level, classe, world, weapon, notes }
             : hero
         );
+
+        if (oldHero && getCurrentHeroName() === oldHero.name) {
+          setCurrentHeroName(name);
+        }
+
         saveHeroes();
         renderHeroes();
+        renderLinkedTasks();
         showMessage("Hero atualizado com sucesso.");
         resetForm();
         return;
@@ -943,60 +1261,174 @@
 
       heroes.push({
         id: Date.now(),
-        name,
-        level,
-        classe,
-        world,
-        weapon,
-        notes
+        name, level, classe, world, weapon, notes
       });
 
       saveHeroes();
+      if (heroes.length === 1) setCurrentHeroName(name);
       renderHeroes();
+      renderLinkedTasks();
       showMessage("Hero salvo com sucesso.");
       resetForm();
     }
 
-    function renderTasks() {
-      const tasks = JSON.parse(localStorage.getItem(tasksKey)) || [];
-      const container = document.getElementById("tasksList");
-      container.innerHTML = "";
+    function editHero(id) {
+      const hero = heroes.find(h => h.id === id);
+      if (!hero) return;
+      fillForm(hero);
+    }
 
-      tasks.forEach(task => {
+    function deleteHero(id) {
+      const hero = heroes.find(h => h.id === id);
+      if (!hero) return;
+      const ok = confirm("Tem certeza que deseja excluir este hero?");
+      if (!ok) return;
+
+      heroes = heroes.filter(h => h.id !== id);
+      saveHeroes();
+
+      if (getCurrentHeroName() === hero.name) {
+        if (heroes[0]) setCurrentHeroName(heroes[0].name);
+        else localStorage.removeItem(currentHeroKey);
+      }
+
+      renderHeroes();
+      renderLinkedTasks();
+      showMessage("Hero excluído com sucesso.");
+      if (editingId === id) resetForm();
+    }
+
+    function useHero(name) {
+      setCurrentHeroName(name);
+      renderHeroes();
+      renderLinkedTasks();
+      showMessage(name + " agora está ativo nas Linked Tasks.");
+    }
+
+    function ensureProgressForHero(heroName) {
+      const data = getProgressData();
+      if (!data[heroName]) data[heroName] = {};
+      const room = roomData.find(r => r.id === "lothlorien");
+      room.tasks.forEach((task, idx) => {
+        if (typeof data[heroName][task.key] !== "number") {
+          const seedMap = {
+            goblin: 100,
+            troll: 30,
+            rotworm: 0
+          };
+          data[heroName][task.key] = seedMap[task.key] ?? 0;
+        }
+      });
+      saveProgressData(data);
+    }
+
+    function renderRooms() {
+      roomsGrid.innerHTML = "";
+      roomData.forEach(room => {
         const card = document.createElement("div");
-        const done = task.progress >= 100;
-        card.className = "task-card";
+        card.className = "room-card" + (selectedRoomId === room.id ? " active" : "");
         card.innerHTML = `
-          <div class="task-title">${task.title}</div>
-          <div class="task-desc">${task.desc}</div>
-
-          <div>
-            ${task.tags.map(tag => `<span class="pill">${tag}</span>`).join("")}
-          </div>
-
-          <div class="progress-wrap">
-            <div class="progress-label">
-              <span>Progresso</span>
-              <span>${task.progress}%</span>
-            </div>
-            <div class="progress-bar">
-              <div class="progress-fill" style="width:${task.progress}%"></div>
-            </div>
-          </div>
-
-          <span class="status ${done ? "done" : task.status}">
-            ${done ? "Concluída" : task.status === "active" ? "Ativa" : "Bloqueada"}
-          </span>
+          <div class="room-title">${room.name}</div>
+          <div class="room-subtitle">${room.desc}</div>
         `;
-        container.appendChild(card);
+        card.onclick = () => {
+          selectedRoomId = room.id;
+          renderLinkedTasks();
+        };
+        roomsGrid.appendChild(card);
       });
     }
+
+    function renderLinkedTasks() {
+      renderRooms();
+
+      const currentHero = getCurrentHeroName();
+      const room = roomData.find(r => r.id === selectedRoomId);
+      roomHeader.textContent = room.name;
+      roomText.textContent = currentHero
+        ? "Hero ativo: " + currentHero
+        : "Nenhum hero ativo. Vá em Heroes e selecione um personagem.";
+
+      tasksTableBody.innerHTML = "";
+      roomRewards.innerHTML = "";
+
+      if (!room.tasks) {
+        tasksTableBody.innerHTML = `
+          <tr>
+            <td colspan="6">
+              <div class="empty-state">Esta sala ainda será montada depois.</div>
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      if (currentHero) ensureProgressForHero(currentHero);
+      const data = getProgressData();
+      const heroProgress = currentHero ? (data[currentHero] || {}) : {};
+
+      room.tasks.forEach(task => {
+        const current = Math.min(heroProgress[task.key] || 0, task.qty);
+        const pct = Math.min(Math.round((current / task.qty) * 100), 100);
+
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${task.no}</td>
+          <td>
+            <div class="monster-cell">
+              <img class="monster-gif" src="${task.monsterImg}" alt="${task.task}">
+              <div>
+                <div class="monster-name">${task.task}</div>
+              </div>
+            </div>
+          </td>
+          <td>${task.qty}</td>
+          <td>${task.related}</td>
+          <td>
+            <div class="rewards">
+              ${task.rewards.map(r => `<div class="reward-green">• ${r}</div>`).join("")}
+              <div class="reward-red">⟲ ${task.repeatReward}</div>
+            </div>
+          </td>
+          <td>
+            <div class="progress-wrap">
+              <div class="progress-top">
+                <span>${current}/${task.qty}</span>
+                <span>${pct}%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width:${pct}%"></div>
+              </div>
+              <div style="margin-top:8px;">
+                ${pct === 100 ? `<span class="ok-badge">Concluída</span>` : `<span class="ok-badge">Em andamento</span>`}
+              </div>
+            </div>
+          </td>
+        `;
+        tasksTableBody.appendChild(tr);
+      });
+
+      (room.rewards || []).forEach(item => {
+        const card = document.createElement("div");
+        card.className = "reward-card";
+        card.innerHTML = `
+          <img src="${item.img}" alt="${item.name}">
+          <div>${item.name}</div>
+        `;
+        roomRewards.appendChild(card);
+      });
+    }
+
+    heroClass.addEventListener("change", () => updateWeapons());
+    heroWorld.addEventListener("change", updateWorldPvp);
+    saveHeroBtn.addEventListener("click", handleSaveHero);
+    clearBtn.addEventListener("click", resetForm);
+    searchHero.addEventListener("input", renderHeroes);
 
     document.querySelectorAll(".tab-btn").forEach(btn => {
       btn.addEventListener("click", () => {
         document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
         btn.classList.add("active");
-
         const target = btn.dataset.tab;
         document.getElementById("heroesTab").classList.add("hidden");
         document.getElementById("tasksTab").classList.add("hidden");
@@ -1004,21 +1436,17 @@
       });
     });
 
-    heroClass.addEventListener("change", () => updateWeapons());
-    saveHeroBtn.addEventListener("click", handleSaveHero);
-    clearBtn.addEventListener("click", resetForm);
-    searchHero.addEventListener("input", renderHeroes);
-
     populateClasses();
     populateWorlds();
     updateWeapons();
     ensureInitialHero();
-    ensureTasks();
+    heroes = getSavedHeroes();
     renderHeroes();
-    renderTasks();
+    renderLinkedTasks();
 
     window.editHero = editHero;
     window.deleteHero = deleteHero;
+    window.useHero = useHero;
   </script>
 </body>
 </html>
