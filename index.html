@@ -1,130 +1,1024 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<title>Nevesladia - Heroes</title>
-<style>
-body {
-  background: #0f0f13;
-  color: #fff;
-  font-family: Arial;
-  padding: 20px;
-}
-h1 { color: gold; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nevesladia</title>
+  <style>
+    :root {
+      --bg: #07111f;
+      --bg-2: #0b1c31;
+      --panel: rgba(10, 28, 49, 0.92);
+      --panel-2: rgba(13, 36, 61, 0.95);
+      --border: rgba(91, 180, 255, 0.22);
+      --text: #eaf4ff;
+      --muted: #9fc4ea;
+      --gold: #f4cc67;
+      --blue: #6ec8ff;
+      --blue-2: #39b8ff;
+      --blue-soft: rgba(110, 200, 255, 0.12);
+      --danger: #ff6b7d;
+      --success: #7ef0c2;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      --radius: 18px;
+    }
 
-.card {
-  background: #1c1c24;
-  padding: 15px;
-  margin: 10px 0;
-  border-radius: 10px;
-}
+    * {
+      box-sizing: border-box;
+    }
 
-button {
-  margin-top: 10px;
-  padding: 8px;
-  background: gold;
-  border: none;
-  cursor: pointer;
-}
-</style>
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top, rgba(34, 99, 180, 0.22), transparent 28%),
+        linear-gradient(180deg, #07111f 0%, #081527 35%, #050d18 100%);
+      min-height: 100vh;
+    }
+
+    .app {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 18px;
+    }
+
+    .topbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 18px;
+      padding: 18px 20px;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      background: linear-gradient(180deg, rgba(9, 25, 43, 0.96), rgba(8, 20, 35, 0.96));
+      box-shadow: var(--shadow);
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 28px;
+      color: var(--gold);
+      letter-spacing: 0.4px;
+    }
+
+    .brand p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .tab-btn {
+      border: 1px solid var(--border);
+      background: rgba(110, 200, 255, 0.08);
+      color: var(--blue);
+      padding: 10px 16px;
+      border-radius: 14px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.2s ease;
+    }
+
+    .tab-btn:hover {
+      transform: translateY(-1px);
+      background: rgba(110, 200, 255, 0.14);
+    }
+
+    .tab-btn.active {
+      background: linear-gradient(180deg, rgba(64, 179, 255, 0.22), rgba(44, 120, 180, 0.18));
+      color: white;
+      box-shadow: 0 0 0 1px rgba(110, 200, 255, 0.22) inset;
+    }
+
+    .panel {
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      background: linear-gradient(180deg, rgba(9, 23, 39, 0.97), rgba(10, 27, 47, 0.96));
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+
+    .section-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .section-title {
+      margin: 0;
+      color: var(--gold);
+      font-size: 24px;
+    }
+
+    .section-subtitle {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .hero-layout {
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 18px;
+    }
+
+    .form-card,
+    .info-card,
+    .task-card,
+    .hero-card {
+      background: linear-gradient(180deg, rgba(10, 28, 49, 0.95), rgba(11, 31, 53, 0.95));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .form-card {
+      padding: 18px;
+      position: sticky;
+      top: 16px;
+      height: fit-content;
+    }
+
+    .form-card h3,
+    .list-title,
+    .task-title {
+      margin: 0 0 14px;
+      color: var(--blue);
+      font-size: 18px;
+    }
+
+    .form-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 13px;
+      color: var(--blue);
+      font-weight: bold;
+      letter-spacing: 0.2px;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      border: 1px solid rgba(110, 200, 255, 0.2);
+      background: rgba(5, 18, 31, 0.78);
+      color: white;
+      border-radius: 12px;
+      padding: 12px 12px;
+      font-size: 14px;
+      outline: none;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: rgba(110, 200, 255, 0.55);
+      box-shadow: 0 0 0 3px rgba(57, 184, 255, 0.12);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 84px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(180deg, #47bfff, #2396de);
+      color: white;
+    }
+
+    .btn-secondary {
+      background: rgba(110, 200, 255, 0.12);
+      color: var(--blue);
+      border: 1px solid var(--border);
+    }
+
+    .btn-danger {
+      background: rgba(255, 107, 125, 0.14);
+      color: #ff93a0;
+      border: 1px solid rgba(255, 107, 125, 0.2);
+    }
+
+    .hero-list-wrap {
+      display: grid;
+      gap: 14px;
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+
+    .toolbar .search {
+      flex: 1;
+      min-width: 220px;
+    }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .info-card {
+      padding: 14px;
+    }
+
+    .info-card strong {
+      display: block;
+      color: var(--gold);
+      font-size: 22px;
+      margin-bottom: 4px;
+    }
+
+    .info-card span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+    }
+
+    .hero-card {
+      padding: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      inset: auto -40px -40px auto;
+      width: 120px;
+      height: 120px;
+      background: radial-gradient(circle, rgba(57,184,255,0.16), transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-name {
+      margin: 0 0 8px;
+      color: white;
+      font-size: 22px;
+      line-height: 1.2;
+    }
+
+    .hero-meta {
+      display: grid;
+      gap: 8px;
+      margin: 14px 0;
+    }
+
+    .meta-line {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 8px 10px;
+      border-radius: 12px;
+      background: rgba(110, 200, 255, 0.06);
+      border: 1px solid rgba(110, 200, 255, 0.08);
+    }
+
+    .meta-label {
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .meta-value {
+      color: white;
+      text-align: right;
+      font-size: 14px;
+    }
+
+    .hero-notes {
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.03);
+      color: var(--muted);
+      font-size: 13px;
+      min-height: 48px;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .small-btn {
+      flex: 1;
+      border: 0;
+      border-radius: 10px;
+      padding: 10px 12px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .edit-btn {
+      background: rgba(110, 200, 255, 0.14);
+      color: var(--blue);
+      border: 1px solid var(--border);
+    }
+
+    .delete-btn {
+      background: rgba(255, 107, 125, 0.14);
+      color: #ff97a4;
+      border: 1px solid rgba(255, 107, 125, 0.2);
+    }
+
+    .empty-state {
+      padding: 28px 18px;
+      text-align: center;
+      color: var(--muted);
+      border: 1px dashed rgba(110, 200, 255, 0.18);
+      border-radius: 18px;
+      background: rgba(110, 200, 255, 0.03);
+    }
+
+    .linked-layout {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+    }
+
+    .task-card {
+      padding: 16px;
+    }
+
+    .task-title {
+      color: white;
+      margin-bottom: 8px;
+      font-size: 20px;
+    }
+
+    .task-desc {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 14px;
+    }
+
+    .progress-wrap {
+      margin: 12px 0;
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--blue);
+      margin-bottom: 6px;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #4ec8ff, #1e8fd8);
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 7px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: bold;
+      margin-right: 6px;
+      margin-bottom: 6px;
+      background: rgba(110, 200, 255, 0.1);
+      color: var(--blue);
+      border: 1px solid rgba(110, 200, 255, 0.16);
+    }
+
+    .status {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .status.active {
+      background: rgba(110, 200, 255, 0.12);
+      color: var(--blue);
+    }
+
+    .status.done {
+      background: rgba(126, 240, 194, 0.12);
+      color: var(--success);
+    }
+
+    .status.locked {
+      background: rgba(255,255,255,0.08);
+      color: #c5d5e6;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .message {
+      margin-bottom: 14px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      font-size: 14px;
+      display: none;
+    }
+
+    .message.show {
+      display: block;
+    }
+
+    .message.success {
+      background: rgba(126, 240, 194, 0.12);
+      color: var(--success);
+      border: 1px solid rgba(126, 240, 194, 0.2);
+    }
+
+    @media (max-width: 920px) {
+      .hero-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .form-card {
+        position: static;
+      }
+
+      .stats-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .topbar {
+        padding: 16px;
+      }
+
+      .brand h1 {
+        font-size: 24px;
+      }
+
+      .section-title {
+        font-size: 22px;
+      }
+
+      .hero-name {
+        font-size: 20px;
+      }
+    }
+  </style>
 </head>
-
 <body>
+  <div class="app">
+    <div class="topbar">
+      <div class="brand">
+        <h1>Nevesladia</h1>
+        <p>Painel de Heroes e Linked Tasks</p>
+      </div>
 
-<h1>Nevesladia - Heroes</h1>
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="heroesTab">Heroes</button>
+        <button class="tab-btn" data-tab="tasksTab">Linked Tasks</button>
+      </div>
+    </div>
 
-<input id="name" placeholder="Nome">
-<input id="level" type="number" placeholder="Level">
+    <div class="panel" id="heroesTab">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Heroes</h2>
+          <p class="section-subtitle">Gerencie seus personagens do RubinOT com visual mais limpo, bonito e permanente.</p>
+        </div>
+      </div>
 
-<select id="classe">
-  <option>Knight</option>
-  <option>Paladin</option>
-  <option>Druid</option>
-  <option>Sorcerer</option>
-  <option>Monk</option>
-</select>
+      <div id="messageBox" class="message success"></div>
 
-<select id="mundo">
-  <option>Etherian</option>
-  <option>Auroria</option>
-  <option>Belaria</option>
-</select>
+      <div class="hero-layout">
+        <div class="form-card">
+          <h3 id="formTitle">Adicionar Hero</h3>
 
-<select id="arma"></select>
+          <div class="form-grid">
+            <div>
+              <label for="heroName">Nome do personagem</label>
+              <input id="heroName" type="text" placeholder="Ex: Salmo Bem" />
+            </div>
 
-<button onclick="addHero()">Adicionar Hero</button>
+            <div>
+              <label for="heroLevel">Level</label>
+              <input id="heroLevel" type="number" min="1" placeholder="Ex: 112" />
+            </div>
 
-<div id="lista"></div>
+            <div>
+              <label for="heroClass">Classe</label>
+              <select id="heroClass"></select>
+            </div>
 
-<script>
-let heroes = JSON.parse(localStorage.getItem("heroes")) || [];
+            <div>
+              <label for="heroWorld">Mundo</label>
+              <select id="heroWorld"></select>
+            </div>
 
-function atualizarArma() {
-  const classe = document.getElementById("classe").value;
-  const arma = document.getElementById("arma");
-  arma.innerHTML = "";
+            <div>
+              <label for="heroWeapon">Especialização</label>
+              <select id="heroWeapon"></select>
+            </div>
 
-  let opcoes = [];
+            <div>
+              <label for="heroNotes">Observações</label>
+              <textarea id="heroNotes" placeholder="Ex: Hunt favorita, build, foco de profit..."></textarea>
+            </div>
 
-  if (classe === "Knight") opcoes = ["Sword","Club","Axe"];
-  if (classe === "Paladin") opcoes = ["Bow","Crossbow"];
-  if (classe === "Druid") opcoes = ["Rod"];
-  if (classe === "Sorcerer") opcoes = ["Wand"];
-  if (classe === "Monk") opcoes = ["Claw"];
+            <div class="actions">
+              <button class="btn btn-primary" id="saveHeroBtn">Salvar Hero</button>
+              <button class="btn btn-secondary" id="clearBtn" type="button">Limpar</button>
+            </div>
+          </div>
+        </div>
 
-  opcoes.forEach(o => {
-    let opt = document.createElement("option");
-    opt.textContent = o;
-    arma.appendChild(opt);
-  });
-}
+        <div class="hero-list-wrap">
+          <div class="stats-row">
+            <div class="info-card">
+              <strong id="totalHeroes">0</strong>
+              <span>Total de Heroes</span>
+            </div>
+            <div class="info-card">
+              <strong id="highestLevel">0</strong>
+              <span>Maior Level</span>
+            </div>
+            <div class="info-card">
+              <strong id="currentWorld">-</strong>
+              <span>Mundo mais usado</span>
+            </div>
+          </div>
 
-document.getElementById("classe").addEventListener("change", atualizarArma);
-atualizarArma();
+          <div class="toolbar">
+            <div class="search">
+              <label for="searchHero">Pesquisar Hero</label>
+              <input id="searchHero" type="text" placeholder="Digite o nome do personagem..." />
+            </div>
+          </div>
 
-function addHero() {
-  const hero = {
-    name: document.getElementById("name").value,
-    level: document.getElementById("level").value,
-    classe: document.getElementById("classe").value,
-    mundo: document.getElementById("mundo").value,
-    arma: document.getElementById("arma").value
-  };
+          <div class="list-title">Lista de Heroes</div>
+          <div id="heroesList" class="hero-grid"></div>
+        </div>
+      </div>
+    </div>
 
-  heroes.push(hero);
-  localStorage.setItem("heroes", JSON.stringify(heroes));
-  render();
-}
+    <div class="panel hidden" id="tasksTab">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Linked Tasks</h2>
+          <p class="section-subtitle">Estrutura inicial da aba já criada para começarmos a montar as tasks depois.</p>
+        </div>
+      </div>
 
-function render() {
-  const lista = document.getElementById("lista");
-  lista.innerHTML = "";
+      <div class="linked-layout" id="tasksList"></div>
+    </div>
+  </div>
 
-  heroes.forEach((h, i) => {
-    const div = document.createElement("div");
-    div.className = "card";
+  <script>
+    const classes = {
+      Knight: ["Sword", "Club", "Axe"],
+      Paladin: ["Bow", "Crossbow"],
+      Druid: ["Rod"],
+      Sorcerer: ["Wand"],
+      Monk: ["Claw"]
+    };
 
-    div.innerHTML = `
-      <b>${h.name}</b><br>
-      Level: ${h.level}<br>
-      Classe: ${h.classe}<br>
-      Mundo: ${h.mundo}<br>
-      Arma: ${h.arma}<br>
-      <button onclick="del(${i})">Excluir</button>
-    `;
+    const worlds = [
+      "Auroria",
+      "Belaria",
+      "Bellum",
+      "Cellenium",
+      "Divinian",
+      "Elysian",
+      "Etherian",
+      "Halorian",
+      "Lunarian",
+      "Mystian",
+      "Serenian",
+      "Solarian",
+      "Spectrum",
+      "Tenebrium",
+      "Vesperia"
+    ];
 
-    lista.appendChild(div);
-  });
-}
+    const tasksSeed = [
+      {
+        title: "Dragon Watch",
+        desc: "Task inicial voltada para monitorar progresso de criaturas dracônicas e preparar conexão futura com bestiário.",
+        progress: 28,
+        status: "active",
+        tags: ["Dragon Lord", "Frost Dragon", "Undead Dragon"]
+      },
+      {
+        title: "Demonic Pressure",
+        desc: "Estrutura base de linked task para hunts demoníacas, com foco em progresso integrado e metas futuras.",
+        progress: 12,
+        status: "active",
+        tags: ["Demon", "Grim Reaper", "Hellhound"]
+      },
+      {
+        title: "Depths of Etherian",
+        desc: "Task preparada para expansão futura com progresso ligado a spawns de profundidade e criaturas mágicas.",
+        progress: 0,
+        status: "locked",
+        tags: ["Hydra", "Serpent Spawn", "Medusa"]
+      }
+    ];
 
-function del(i) {
-  heroes.splice(i, 1);
-  localStorage.setItem("heroes", JSON.stringify(heroes));
-  render();
-}
+    const heroesKey = "heroes";
+    const tasksKey = "linkedTasks";
+    let heroes = [];
+    let editingId = null;
 
-render();
-</script>
+    const heroName = document.getElementById("heroName");
+    const heroLevel = document.getElementById("heroLevel");
+    const heroClass = document.getElementById("heroClass");
+    const heroWorld = document.getElementById("heroWorld");
+    const heroWeapon = document.getElementById("heroWeapon");
+    const heroNotes = document.getElementById("heroNotes");
+    const heroesList = document.getElementById("heroesList");
+    const formTitle = document.getElementById("formTitle");
+    const saveHeroBtn = document.getElementById("saveHeroBtn");
+    const clearBtn = document.getElementById("clearBtn");
+    const searchHero = document.getElementById("searchHero");
+    const messageBox = document.getElementById("messageBox");
 
+    function showMessage(text) {
+      messageBox.textContent = text;
+      messageBox.classList.add("show");
+      setTimeout(() => {
+        messageBox.classList.remove("show");
+      }, 2200);
+    }
+
+    function populateClasses() {
+      heroClass.innerHTML = "";
+      Object.keys(classes).forEach(cls => {
+        const option = document.createElement("option");
+        option.value = cls;
+        option.textContent = cls;
+        heroClass.appendChild(option);
+      });
+    }
+
+    function populateWorlds() {
+      heroWorld.innerHTML = "";
+      worlds.forEach(world => {
+        const option = document.createElement("option");
+        option.value = world;
+        option.textContent = world === "Etherian" ? "Etherian (Etérea)" : world;
+        heroWorld.appendChild(option);
+      });
+    }
+
+    function updateWeapons(selectedWeapon = "") {
+      const currentClass = heroClass.value;
+      const weapons = classes[currentClass] || [];
+      heroWeapon.innerHTML = "";
+
+      weapons.forEach(item => {
+        const option = document.createElement("option");
+        option.value = item;
+        option.textContent = item;
+        if (item === selectedWeapon) option.selected = true;
+        heroWeapon.appendChild(option);
+      });
+    }
+
+    function getSavedHeroes() {
+      try {
+        return JSON.parse(localStorage.getItem(heroesKey)) || [];
+      } catch {
+        return [];
+      }
+    }
+
+    function saveHeroes() {
+      localStorage.setItem(heroesKey, JSON.stringify(heroes));
+    }
+
+    function ensureInitialHero() {
+      heroes = getSavedHeroes();
+      if (!heroes.length) {
+        heroes = [
+          {
+            id: Date.now(),
+            name: "Salmo Bem",
+            level: 112,
+            classe: "Paladin",
+            world: "Etherian",
+            weapon: "Bow",
+            notes: "Hero inicial salvo para teste permanente."
+          }
+        ];
+        saveHeroes();
+      }
+    }
+
+    function ensureTasks() {
+      const saved = localStorage.getItem(tasksKey);
+      if (!saved) {
+        localStorage.setItem(tasksKey, JSON.stringify(tasksSeed));
+      }
+    }
+
+    function resetForm() {
+      editingId = null;
+      formTitle.textContent = "Adicionar Hero";
+      saveHeroBtn.textContent = "Salvar Hero";
+      heroName.value = "";
+      heroLevel.value = "";
+      heroClass.value = "Knight";
+      updateWeapons();
+      heroWorld.value = "Etherian";
+      heroNotes.value = "";
+    }
+
+    function fillForm(hero) {
+      editingId = hero.id;
+      formTitle.textContent = "Editar Hero";
+      saveHeroBtn.textContent = "Atualizar Hero";
+      heroName.value = hero.name;
+      heroLevel.value = hero.level;
+      heroClass.value = hero.classe;
+      updateWeapons(hero.weapon);
+      heroWorld.value = hero.world;
+      heroNotes.value = hero.notes || "";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function getFilteredHeroes() {
+      const term = searchHero.value.trim().toLowerCase();
+      if (!term) return heroes;
+      return heroes.filter(hero =>
+        hero.name.toLowerCase().includes(term) ||
+        hero.classe.toLowerCase().includes(term) ||
+        hero.world.toLowerCase().includes(term)
+      );
+    }
+
+    function renderStats() {
+      document.getElementById("totalHeroes").textContent = heroes.length;
+
+      const highest = heroes.length ? Math.max(...heroes.map(h => Number(h.level) || 0)) : 0;
+      document.getElementById("highestLevel").textContent = highest;
+
+      if (!heroes.length) {
+        document.getElementById("currentWorld").textContent = "-";
+        return;
+      }
+
+      const countByWorld = {};
+      heroes.forEach(h => {
+        countByWorld[h.world] = (countByWorld[h.world] || 0) + 1;
+      });
+
+      let bestWorld = "-";
+      let bestCount = 0;
+      for (const world in countByWorld) {
+        if (countByWorld[world] > bestCount) {
+          bestWorld = world;
+          bestCount = countByWorld[world];
+        }
+      }
+
+      document.getElementById("currentWorld").textContent = bestWorld;
+    }
+
+    function renderHeroes() {
+      const filtered = getFilteredHeroes();
+      heroesList.innerHTML = "";
+
+      if (!filtered.length) {
+        heroesList.innerHTML = `
+          <div class="empty-state">
+            Nenhum hero encontrado.
+          </div>
+        `;
+        renderStats();
+        return;
+      }
+
+      filtered.forEach(hero => {
+        const card = document.createElement("div");
+        card.className = "hero-card";
+        card.innerHTML = `
+          <h3 class="hero-name">${hero.name}</h3>
+
+          <div class="hero-meta">
+            <div class="meta-line">
+              <span class="meta-label">Level</span>
+              <span class="meta-value">${hero.level}</span>
+            </div>
+
+            <div class="meta-line">
+              <span class="meta-label">Classe</span>
+              <span class="meta-value">${hero.classe}</span>
+            </div>
+
+            <div class="meta-line">
+              <span class="meta-label">Mundo</span>
+              <span class="meta-value">${hero.world === "Etherian" ? "Etherian (Etérea)" : hero.world}</span>
+            </div>
+
+            <div class="meta-line">
+              <span class="meta-label">Especialização</span>
+              <span class="meta-value">${hero.weapon}</span>
+            </div>
+          </div>
+
+          <div class="hero-notes">${hero.notes ? hero.notes : "Sem observações."}</div>
+
+          <div class="card-actions">
+            <button class="small-btn edit-btn" onclick="editHero(${hero.id})">Editar</button>
+            <button class="small-btn delete-btn" onclick="deleteHero(${hero.id})">Excluir</button>
+          </div>
+        `;
+        heroesList.appendChild(card);
+      });
+
+      renderStats();
+    }
+
+    function editHero(id) {
+      const hero = heroes.find(h => h.id === id);
+      if (!hero) return;
+      fillForm(hero);
+    }
+
+    function deleteHero(id) {
+      const ok = confirm("Tem certeza que deseja excluir este hero?");
+      if (!ok) return;
+      heroes = heroes.filter(h => h.id !== id);
+      saveHeroes();
+      renderHeroes();
+      showMessage("Hero excluído com sucesso.");
+      if (editingId === id) resetForm();
+    }
+
+    function handleSaveHero() {
+      const name = heroName.value.trim();
+      const level = Number(heroLevel.value);
+      const classe = heroClass.value;
+      const world = heroWorld.value;
+      const weapon = heroWeapon.value;
+      const notes = heroNotes.value.trim();
+
+      if (!name) {
+        alert("Digite o nome do personagem.");
+        return;
+      }
+
+      if (!level || level < 1) {
+        alert("Digite um level válido.");
+        return;
+      }
+
+      if (editingId) {
+        heroes = heroes.map(hero =>
+          hero.id === editingId
+            ? { ...hero, name, level, classe, world, weapon, notes }
+            : hero
+        );
+        saveHeroes();
+        renderHeroes();
+        showMessage("Hero atualizado com sucesso.");
+        resetForm();
+        return;
+      }
+
+      heroes.push({
+        id: Date.now(),
+        name,
+        level,
+        classe,
+        world,
+        weapon,
+        notes
+      });
+
+      saveHeroes();
+      renderHeroes();
+      showMessage("Hero salvo com sucesso.");
+      resetForm();
+    }
+
+    function renderTasks() {
+      const tasks = JSON.parse(localStorage.getItem(tasksKey)) || [];
+      const container = document.getElementById("tasksList");
+      container.innerHTML = "";
+
+      tasks.forEach(task => {
+        const card = document.createElement("div");
+        const done = task.progress >= 100;
+        card.className = "task-card";
+        card.innerHTML = `
+          <div class="task-title">${task.title}</div>
+          <div class="task-desc">${task.desc}</div>
+
+          <div>
+            ${task.tags.map(tag => `<span class="pill">${tag}</span>`).join("")}
+          </div>
+
+          <div class="progress-wrap">
+            <div class="progress-label">
+              <span>Progresso</span>
+              <span>${task.progress}%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width:${task.progress}%"></div>
+            </div>
+          </div>
+
+          <span class="status ${done ? "done" : task.status}">
+            ${done ? "Concluída" : task.status === "active" ? "Ativa" : "Bloqueada"}
+          </span>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    document.querySelectorAll(".tab-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        const target = btn.dataset.tab;
+        document.getElementById("heroesTab").classList.add("hidden");
+        document.getElementById("tasksTab").classList.add("hidden");
+        document.getElementById(target).classList.remove("hidden");
+      });
+    });
+
+    heroClass.addEventListener("change", () => updateWeapons());
+    saveHeroBtn.addEventListener("click", handleSaveHero);
+    clearBtn.addEventListener("click", resetForm);
+    searchHero.addEventListener("input", renderHeroes);
+
+    populateClasses();
+    populateWorlds();
+    updateWeapons();
+    ensureInitialHero();
+    ensureTasks();
+    renderHeroes();
+    renderTasks();
+
+    window.editHero = editHero;
+    window.deleteHero = deleteHero;
+  </script>
 </body>
 </html>
