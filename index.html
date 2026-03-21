@@ -36,7 +36,7 @@
     }
 
     .app {
-      max-width: 1280px;
+      max-width: 1320px;
       margin: 0 auto;
       padding: 18px;
     }
@@ -85,6 +85,7 @@
     }
 
     .tab-btn:hover { transform: translateY(-1px); }
+
     .tab-btn.active {
       color: white;
       background: linear-gradient(180deg, rgba(61, 179, 255, 0.26), rgba(36, 108, 170, 0.18));
@@ -132,7 +133,6 @@
     .info-card,
     .hero-card,
     .room-card,
-    .task-card,
     .reward-card {
       border: 1px solid var(--border);
       border-radius: var(--radius);
@@ -317,6 +317,7 @@
       display: flex;
       gap: 8px;
       margin-top: 14px;
+      flex-wrap: wrap;
     }
 
     .small-btn {
@@ -326,6 +327,7 @@
       padding: 10px 12px;
       cursor: pointer;
       font-weight: bold;
+      min-width: 100px;
     }
 
     .edit-btn {
@@ -407,6 +409,20 @@
       font-size: 18px;
     }
 
+    .lt-controls {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-top: 12px;
+    }
+
+    .lt-controls select,
+    .lt-controls button {
+      width: auto;
+      min-width: 180px;
+    }
+
     .tasks-table-wrap {
       overflow-x: auto;
       border: 1px solid var(--border);
@@ -418,7 +434,7 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      min-width: 980px;
+      min-width: 1100px;
     }
 
     thead th {
@@ -443,25 +459,20 @@
     }
 
     .monster-gif {
-      width: 42px;
-      height: 42px;
+      width: 44px;
+      height: 44px;
       object-fit: contain;
       border-radius: 10px;
       background: rgba(255,255,255,0.04);
       padding: 4px;
       border: 1px solid rgba(118,208,255,0.12);
+      flex: 0 0 auto;
     }
 
     .monster-name {
       color: white;
       font-weight: bold;
       margin-bottom: 4px;
-    }
-
-    .monster-related {
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.4;
     }
 
     .rewards {
@@ -473,7 +484,7 @@
     .reward-red { color: #ff8e9b; }
 
     .progress-wrap {
-      min-width: 180px;
+      min-width: 210px;
     }
 
     .progress-top {
@@ -508,6 +519,18 @@
       background: rgba(91,200,255,0.12);
       color: var(--blue);
       border: 1px solid rgba(91,200,255,0.18);
+      margin-top: 8px;
+    }
+
+    .task-action-btn {
+      margin-top: 8px;
+      border: 1px solid var(--border);
+      background: rgba(118,208,255,0.08);
+      color: var(--blue);
+      border-radius: 10px;
+      padding: 8px 10px;
+      font-weight: bold;
+      cursor: pointer;
     }
 
     .rewards-grid {
@@ -619,7 +642,7 @@
 
             <div>
               <label for="heroNotes">Observações</label>
-              <textarea id="heroNotes" placeholder="Ex: Hunt favorita, build, foco, observações..."></textarea>
+              <textarea id="heroNotes" placeholder="Ex: Hunt favorita, build, foco..."></textarea>
             </div>
 
             <div class="actions">
@@ -662,7 +685,7 @@
       <div class="section-header">
         <div>
           <h2 class="section-title">Linked Tasks</h2>
-          <p class="section-subtitle">Primeira sala montada: Lothlorien's Room.</p>
+          <p class="section-subtitle">Sistema baseado nas salas oficiais; Lothlorien pronta para edição por hero. :contentReference[oaicite:1]{index=1}</p>
         </div>
       </div>
 
@@ -671,6 +694,15 @@
       <div class="lt-summary">
         <h3 id="roomHeader">Lothlorien's Room</h3>
         <div id="roomText">Selecione uma sala para visualizar as tasks.</div>
+
+        <div class="lt-controls">
+          <div>
+            <label for="heroSelector">Hero ativo nas Linked Tasks</label>
+            <select id="heroSelector"></select>
+          </div>
+
+          <button class="btn btn-secondary" id="clearHeroBtn" type="button">Sem hero ativo</button>
+        </div>
       </div>
 
       <div class="tasks-table-wrap">
@@ -692,7 +724,7 @@
       <div class="section-header" style="margin-top:8px;">
         <div>
           <h2 class="section-title" style="font-size:20px;">Recompensas da Sala</h2>
-          <p class="section-subtitle">Ao finalizar todas as tasks da sala, o personagem pode receber uma das recompensas abaixo.</p>
+          <p class="section-subtitle">Ao finalizar todas as tasks da sala, o personagem pode receber uma das recompensas abaixo. :contentReference[oaicite:2]{index=2}</p>
         </div>
       </div>
 
@@ -731,22 +763,36 @@
       { name: "Vesperia", pvp: "Open PvP" }
     ];
 
+    const placeholderGif = "data:image/svg+xml;utf8," + encodeURIComponent(`
+      <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44">
+        <rect width="44" height="44" rx="8" fill="#10253d"/>
+        <text x="22" y="25" text-anchor="middle" fill="#76d0ff" font-size="10" font-family="Arial">GIF</text>
+      </svg>
+    `);
+
+    const placeholderReward = "data:image/svg+xml;utf8," + encodeURIComponent(`
+      <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64">
+        <rect width="64" height="64" rx="12" fill="#10253d"/>
+        <text x="32" y="36" text-anchor="middle" fill="#76d0ff" font-size="12" font-family="Arial">ITEM</text>
+      </svg>
+    `);
+
     const roomData = [
       {
         id: "lothlorien",
         name: "Lothlorien's Room",
-        desc: "Primeira sala das Linked Tasks, com 20 tasks e recompensas finais.",
+        desc: "Primeira sala das Linked Tasks. Somente uma task pode ficar ativa por personagem; o sistema abaixo salva progresso separado por hero. :contentReference[oaicite:3]{index=3}",
         rewards: [
-          { name: "Lothlorien Tapestry", img: "https://static.wikia.nocookie.net/tibia/images/7/7f/Scroll.gif" },
-          { name: "Lothlorien Backpack", img: "https://static.wikia.nocookie.net/tibia/images/9/93/Backpack.gif" },
-          { name: "Lothlorien Stone", img: "https://static.wikia.nocookie.net/tibia/images/f/f7/Blue_Gem.gif" },
-          { name: "Mini Obelisk", img: "https://static.wikia.nocookie.net/tibia/images/e/e2/Stone_Heraldic_Obelisk.gif" },
-          { name: "Stone of Ascension", img: "https://static.wikia.nocookie.net/tibia/images/0/05/Small_Stone.gif" },
-          { name: "Boosted Exercise Present", img: "https://static.wikia.nocookie.net/tibia/images/1/11/Wrapped_Present.gif" },
-          { name: "Roulette Coin", img: "https://static.wikia.nocookie.net/tibia/images/0/08/Gold_Coin.gif" },
-          { name: "Mystic Bag", img: "https://static.wikia.nocookie.net/tibia/images/8/87/Blue_Backpack.gif" },
-          { name: "Liquid Dust", img: "https://static.wikia.nocookie.net/tibia/images/3/32/Small_Flask_of_Eyedrops.gif" },
-          { name: "Bless Scroll", img: "https://static.wikia.nocookie.net/tibia/images/5/5f/Scroll_of_Ascension.gif" }
+          { name: "Lothlorien Tapestry", img: placeholderReward },
+          { name: "Lothlorien Backpack", img: placeholderReward },
+          { name: "Lothlorien Stone", img: placeholderReward },
+          { name: "Mini Obelisk", img: placeholderReward },
+          { name: "Stone of Ascension", img: placeholderReward },
+          { name: "Boosted Exercise Present", img: placeholderReward },
+          { name: "Roulette Coin", img: placeholderReward },
+          { name: "Mystic Bag", img: placeholderReward },
+          { name: "Liquid Dust", img: placeholderReward },
+          { name: "Bless Scroll", img: placeholderReward }
         ],
         tasks: [
           {
@@ -755,7 +801,7 @@
             task: "Goblin",
             qty: 100,
             related: "Goblin",
-            monsterImg: "https://static.wikia.nocookie.net/tibia/images/4/4f/Goblin.gif",
+            monsterImg: placeholderGif,
             rewards: ["5.000 EXP x Rate", "10.000 Gold Coins"],
             repeatReward: "4.000 EXP x Rate"
           },
@@ -765,7 +811,7 @@
             task: "Troll",
             qty: 100,
             related: "Troll, Swamp Troll, Frost Troll, Island Troll",
-            monsterImg: "https://static.wikia.nocookie.net/tibia/images/a/a3/Troll.gif",
+            monsterImg: placeholderGif,
             rewards: ["7.000 EXP x Rate", "10.000 Gold Coins"],
             repeatReward: "5.000 EXP x Rate"
           },
@@ -775,7 +821,7 @@
             task: "Rotworm",
             qty: 200,
             related: "Rotworm, Carrion Worm",
-            monsterImg: "https://static.wikia.nocookie.net/tibia/images/3/30/Rotworm.gif",
+            monsterImg: placeholderGif,
             rewards: ["10.000 EXP x Rate", "20.000 Gold Coins"],
             repeatReward: "10.000 Gold Coins"
           },
@@ -785,7 +831,7 @@
             task: "Minotaur",
             qty: 200,
             related: "Minotaur, Minotaur Archer, Minotaur Guard, Minotaur Mage",
-            monsterImg: "https://static.wikia.nocookie.net/tibia/images/a/a5/Minotaur.gif",
+            monsterImg: placeholderGif,
             rewards: ["15.000 EXP x Rate"],
             repeatReward: "11.000 EXP x Rate"
           },
@@ -795,7 +841,7 @@
             task: "Dwarf",
             qty: 300,
             related: "Dwarf, Dwarf Soldier, Dwarf Guard, Dwarf Geomancer",
-            monsterImg: "https://static.wikia.nocookie.net/tibia/images/9/9a/Dwarf.gif",
+            monsterImg: placeholderGif,
             rewards: ["1x Exercise Weapon (3.600 Charges)"],
             repeatReward: "13.000 EXP x Rate"
           },
@@ -805,171 +851,39 @@
             task: "Dworc",
             qty: 300,
             related: "Dworc Venomsniper, Dworc Voodoomaster, Dworc Fleshhunter",
-            monsterImg: "https://static.wikia.nocookie.net/tibia/images/8/8f/Dworc_Fleshhunter.gif",
+            monsterImg: placeholderGif,
             rewards: ["50.000 Gold Coins"],
             repeatReward: "20.000 Gold Coins"
-          },
-          {
-            no: 7,
-            key: "orc",
-            task: "Orc",
-            qty: 300,
-            related: "Orc, Orc Spearman, Orc Warrior, Orc Rider, Orc Shaman, Orc Berserker, Orc Leader, Orc Warlord",
-            monsterImg: "https://static.wikia.nocookie.net/tibia/images/c/c0/Orc.gif",
-            rewards: ["20.000 EXP x Rate"],
-            repeatReward: "15.000 EXP x Rate"
-          },
-          {
-            no: 8,
-            key: "elf",
-            task: "Elf",
-            qty: 400,
-            related: "Elf, Elf Scout, Elf Arcanist",
-            monsterImg: "https://static.wikia.nocookie.net/tibia/images/3/38/Elf.gif",
-            rewards: ["25.000 EXP x Rate"],
-            repeatReward: "18.000 EXP x Rate"
-          },
-          {
-            no: 9,
-            key: "cyclops",
-            task: "Cyclops",
-            qty: 400,
-            related: "Cyclops, Cyclops Drone, Cyclops Smith",
-            monsterImg: "https://static.wikia.nocookie.net/tibia/images/a/ac/Cyclops.gif",
-            rewards: ["30.000 EXP x Rate"],
-            repeatReward: "20.000 EXP x Rate"
-          },
-          {
-            no: 10,
-            key: "amazon",
-            task: "Amazon",
-            qty: 400,
-            related: "Amazon, Valkyrie",
-            monsterImg: "https://static.wikia.nocookie.net/tibia/images/d/d8/Amazon.gif",
-            rewards: ["35.000 Gold Coins"],
-            repeatReward: "25.000 Gold Coins"
-          },
-          {
-            no: 11,
-            key: "ghoul",
-            task: "Ghoul",
-            qty: 500,
-            related: "Ghoul, Crypt Shambler",
-            monsterImg: "https://static.wikia.nocookie.net/tibia/images/c/c7/Ghoul.gif",
-            rewards: ["40.000 EXP x Rate"],
-            repeatReward: "30.000 EXP x Rate"
-          },
-          {
-            no: 12,
-            key: "mummy",
-            task: "Mummy",
-            qty: 500,
-            related: "Mummy",
-            monsterImg: "https://static.wikia.nocookie.net/tibia/images/d/db/Mummy.gif",
-            rewards: ["45.000 EXP x Rate"],
-            repeatReward: "35.000 EXP x Rate"
-          },
-          {
-            no: 13,
-            key: "scarab",
-            task: "Scarab",
-            qty: 500,
-            related: "Scarab, Ancient Scarab",
-            monsterImg: "https://static.wikia.nocookie.net/tibia/images/7/7c/Scarab.gif",
-            rewards: ["50.000 EXP x Rate"],
-            repeatReward: "38.000 EXP x Rate"
-          },
-          {
-            no: 14,
-            key: "tarantula",
-            task: "Tarantula",
-            qty: 600,
-            related: "Tarantula",
-            monsterImg: "https://static.wikia.nocookie.net/tibia/images/e/e4/Tarantula.gif",
-            rewards: ["55.000 EXP x Rate"],
-            repeatReward: "40.000 EXP x Rate"
-          },
-          {
-            no: 15,
-            key: "stonegolem",
-            task: "Stone Golem",
-            qty: 600,
-            related: "Stone Golem",
-            monsterImg: "https://static.wikia.nocookie.net/tibia/images/5/50/Stone_Golem.gif",
-            rewards: ["60.000 EXP x Rate"],
-            repeatReward: "45.000 EXP x Rate"
-          },
-          {
-            no: 16,
-            key: "dragon",
-            task: "Dragon",
-            qty: 700,
-            related: "Dragon, Dragon Hatchling, Dragon Lord Hatchling",
-            monsterImg: "https://static.wikia.nocookie.net/tibia/images/e/ef/Dragon.gif",
-            rewards: ["70.000 EXP x Rate"],
-            repeatReward: "50.000 EXP x Rate"
-          },
-          {
-            no: 17,
-            key: "dragonlord",
-            task: "Dragon Lord",
-            qty: 800,
-            related: "Dragon Lord",
-            monsterImg: "https://static.wikia.nocookie.net/tibia/images/4/4f/Dragon_Lord.gif",
-            rewards: ["90.000 EXP x Rate"],
-            repeatReward: "70.000 EXP x Rate"
-          },
-          {
-            no: 18,
-            key: "giantspider",
-            task: "Giant Spider",
-            qty: 800,
-            related: "Giant Spider",
-            monsterImg: "https://static.wikia.nocookie.net/tibia/images/8/84/Giant_Spider.gif",
-            rewards: ["100.000 EXP x Rate"],
-            repeatReward: "80.000 EXP x Rate"
-          },
-          {
-            no: 19,
-            key: "behemoth",
-            task: "Behemoth",
-            qty: 900,
-            related: "Behemoth",
-            monsterImg: "https://static.wikia.nocookie.net/tibia/images/0/08/Behemoth.gif",
-            rewards: ["120.000 EXP x Rate"],
-            repeatReward: "90.000 EXP x Rate"
-          },
-          {
-            no: 20,
-            key: "hightier",
-            task: "Elite Creatures",
-            qty: 1000,
-            related: "Minotaur Amazon, Worn Priestess, Execowtioner, Moohtant",
-            monsterImg: "https://static.wikia.nocookie.net/tibia/images/6/62/Minotaur_Amazon.gif",
-            rewards: ["1x Rare Room Reward Roll"],
-            repeatReward: "1.000.000 EXP x Rate"
           }
         ]
       },
       {
         id: "executioner",
         name: "Executioner's Room",
-        desc: "Sala preparada para expansão futura."
+        desc: "Sala criada e pronta para preencher com os dados exatos da wiki. :contentReference[oaicite:4]{index=4}",
+        rewards: [],
+        tasks: []
       },
       {
         id: "morgul",
         name: "Morgul's Room",
-        desc: "Sala preparada para expansão futura."
+        desc: "Sala criada e pronta para preencher com os dados exatos da wiki. :contentReference[oaicite:5]{index=5}",
+        rewards: [],
+        tasks: []
       },
       {
         id: "corrupted",
         name: "Corrupted's Room",
-        desc: "Sala preparada para expansão futura."
+        desc: "Sala criada e pronta para preencher com os dados exatos da wiki. :contentReference[oaicite:6]{index=6}",
+        rewards: [],
+        tasks: []
       },
       {
         id: "nzoth",
         name: "N'Zoth's Room",
-        desc: "Sala preparada para expansão futura."
+        desc: "Sala criada e pronta para preencher com os dados exatos da wiki. :contentReference[oaicite:7]{index=7}",
+        rewards: [],
+        tasks: []
       }
     ];
 
@@ -995,6 +909,8 @@
     const roomText = document.getElementById("roomText");
     const tasksTableBody = document.getElementById("tasksTableBody");
     const roomRewards = document.getElementById("roomRewards");
+    const heroSelector = document.getElementById("heroSelector");
+    const clearHeroBtn = document.getElementById("clearHeroBtn");
 
     function showMessage(text) {
       messageBox.textContent = text;
@@ -1091,12 +1007,15 @@
     function getCurrentHeroName() {
       const saved = localStorage.getItem(currentHeroKey);
       if (saved) return saved;
-      if (heroes[0]) return heroes[0].name;
-      return null;
+      return "";
     }
 
     function setCurrentHeroName(name) {
-      localStorage.setItem(currentHeroKey, name);
+      if (!name) {
+        localStorage.removeItem(currentHeroKey);
+      } else {
+        localStorage.setItem(currentHeroKey, name);
+      }
     }
 
     function resetForm() {
@@ -1253,6 +1172,7 @@
 
         saveHeroes();
         renderHeroes();
+        renderHeroSelector();
         renderLinkedTasks();
         showMessage("Hero atualizado com sucesso.");
         resetForm();
@@ -1265,8 +1185,8 @@
       });
 
       saveHeroes();
-      if (heroes.length === 1) setCurrentHeroName(name);
       renderHeroes();
+      renderHeroSelector();
       renderLinkedTasks();
       showMessage("Hero salvo com sucesso.");
       resetForm();
@@ -1288,11 +1208,11 @@
       saveHeroes();
 
       if (getCurrentHeroName() === hero.name) {
-        if (heroes[0]) setCurrentHeroName(heroes[0].name);
-        else localStorage.removeItem(currentHeroKey);
+        setCurrentHeroName("");
       }
 
       renderHeroes();
+      renderHeroSelector();
       renderLinkedTasks();
       showMessage("Hero excluído com sucesso.");
       if (editingId === id) resetForm();
@@ -1301,25 +1221,72 @@
     function useHero(name) {
       setCurrentHeroName(name);
       renderHeroes();
+      renderHeroSelector();
       renderLinkedTasks();
       showMessage(name + " agora está ativo nas Linked Tasks.");
     }
 
-    function ensureProgressForHero(heroName) {
+    function renderHeroSelector() {
+      heroSelector.innerHTML = "";
+      const emptyOption = document.createElement("option");
+      emptyOption.value = "";
+      emptyOption.textContent = "Sem hero ativo";
+      heroSelector.appendChild(emptyOption);
+
+      heroes.forEach(hero => {
+        const option = document.createElement("option");
+        option.value = hero.name;
+        option.textContent = hero.name;
+        heroSelector.appendChild(option);
+      });
+
+      heroSelector.value = getCurrentHeroName();
+    }
+
+    function getHeroProgress(heroName) {
       const data = getProgressData();
-      if (!data[heroName]) data[heroName] = {};
+      return data[heroName] || {};
+    }
+
+    function setHeroProgress(heroName, progress) {
+      const data = getProgressData();
+      data[heroName] = progress;
+      saveProgressData(data);
+    }
+
+    function ensureProgressForHero(heroName) {
+      if (!heroName) return;
+      const progress = getHeroProgress(heroName);
       const room = roomData.find(r => r.id === "lothlorien");
-      room.tasks.forEach((task, idx) => {
-        if (typeof data[heroName][task.key] !== "number") {
-          const seedMap = {
-            goblin: 100,
-            troll: 30,
-            rotworm: 0
-          };
-          data[heroName][task.key] = seedMap[task.key] ?? 0;
+      room.tasks.forEach(task => {
+        if (typeof progress[task.key] !== "number") {
+          progress[task.key] = 0;
         }
       });
-      saveProgressData(data);
+      setHeroProgress(heroName, progress);
+    }
+
+    function editProgress(roomId, taskKey, maxQty) {
+      const hero = getCurrentHeroName();
+
+      if (!hero) {
+        alert("Nenhum hero ativo.");
+        return;
+      }
+
+      const progress = getHeroProgress(hero);
+      const currentValue = progress[taskKey] || 0;
+
+      let value = prompt("Digite o progresso atual:", currentValue);
+      if (value === null) return;
+
+      value = Number(value);
+      if (isNaN(value) || value < 0) value = 0;
+      if (value > maxQty) value = maxQty;
+
+      progress[taskKey] = value;
+      setHeroProgress(hero, progress);
+      renderLinkedTasks();
     }
 
     function renderRooms() {
@@ -1344,19 +1311,20 @@
 
       const currentHero = getCurrentHeroName();
       const room = roomData.find(r => r.id === selectedRoomId);
+
       roomHeader.textContent = room.name;
-      roomText.textContent = currentHero
-        ? "Hero ativo: " + currentHero
-        : "Nenhum hero ativo. Vá em Heroes e selecione um personagem.";
+      roomText.innerHTML = currentHero
+        ? `Hero ativo: <strong>${currentHero}</strong>`
+        : `Nenhum hero ativo. Você ainda pode ver a sala e as tasks sem selecionar personagem.`;
 
       tasksTableBody.innerHTML = "";
       roomRewards.innerHTML = "";
 
-      if (!room.tasks) {
+      if (!room.tasks || !room.tasks.length) {
         tasksTableBody.innerHTML = `
           <tr>
             <td colspan="6">
-              <div class="empty-state">Esta sala ainda será montada depois.</div>
+              <div class="empty-state">Esta sala já foi criada no app, mas ainda não foi preenchida com as tasks exatas.</div>
             </td>
           </tr>
         `;
@@ -1364,19 +1332,18 @@
       }
 
       if (currentHero) ensureProgressForHero(currentHero);
-      const data = getProgressData();
-      const heroProgress = currentHero ? (data[currentHero] || {}) : {};
+      const heroProgress = currentHero ? getHeroProgress(currentHero) : {};
 
       room.tasks.forEach(task => {
-        const current = Math.min(heroProgress[task.key] || 0, task.qty);
-        const pct = Math.min(Math.round((current / task.qty) * 100), 100);
+        const current = currentHero ? Math.min(heroProgress[task.key] || 0, task.qty) : 0;
+        const pct = currentHero ? Math.min(Math.round((current / task.qty) * 100), 100) : 0;
 
         const tr = document.createElement("tr");
         tr.innerHTML = `
           <td>${task.no}</td>
           <td>
             <div class="monster-cell">
-              <img class="monster-gif" src="${task.monsterImg}" alt="${task.task}">
+              <img class="monster-gif" src="${task.monsterImg || placeholderGif}" alt="${task.task}" onerror="this.src='${placeholderGif}'">
               <div>
                 <div class="monster-name">${task.task}</div>
               </div>
@@ -1399,9 +1366,9 @@
               <div class="progress-bar">
                 <div class="progress-fill" style="width:${pct}%"></div>
               </div>
-              <div style="margin-top:8px;">
-                ${pct === 100 ? `<span class="ok-badge">Concluída</span>` : `<span class="ok-badge">Em andamento</span>`}
-              </div>
+              <div class="ok-badge">${pct === 100 ? "Concluída" : "Em andamento"}</div>
+              <br>
+              <button class="task-action-btn" onclick="editProgress('${room.id}','${task.key}',${task.qty})">✏️ Editar</button>
             </div>
           </td>
         `;
@@ -1412,7 +1379,7 @@
         const card = document.createElement("div");
         card.className = "reward-card";
         card.innerHTML = `
-          <img src="${item.img}" alt="${item.name}">
+          <img src="${item.img || placeholderReward}" alt="${item.name}" onerror="this.src='${placeholderReward}'">
           <div>${item.name}</div>
         `;
         roomRewards.appendChild(card);
@@ -1424,6 +1391,20 @@
     saveHeroBtn.addEventListener("click", handleSaveHero);
     clearBtn.addEventListener("click", resetForm);
     searchHero.addEventListener("input", renderHeroes);
+
+    heroSelector.addEventListener("change", () => {
+      setCurrentHeroName(heroSelector.value);
+      renderHeroes();
+      renderLinkedTasks();
+    });
+
+    clearHeroBtn.addEventListener("click", () => {
+      setCurrentHeroName("");
+      renderHeroes();
+      renderHeroSelector();
+      renderLinkedTasks();
+      showMessage("Nenhum hero ativo nas Linked Tasks.");
+    });
 
     document.querySelectorAll(".tab-btn").forEach(btn => {
       btn.addEventListener("click", () => {
@@ -1442,11 +1423,13 @@
     ensureInitialHero();
     heroes = getSavedHeroes();
     renderHeroes();
+    renderHeroSelector();
     renderLinkedTasks();
 
     window.editHero = editHero;
     window.deleteHero = deleteHero;
     window.useHero = useHero;
+    window.editProgress = editProgress;
   </script>
 </body>
 </html>
