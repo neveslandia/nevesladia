@@ -5,33 +5,93 @@
 <title>Nevesladia</title>
 
 <style>
-body{background:#06101d;color:white;font-family:Arial;margin:0}
+body{
+background:#06101d;
+color:white;
+font-family:Arial;
+margin:0;
+}
+
 .container{padding:20px}
-button{cursor:pointer}
 
-.tab{padding:10px;margin:5px;background:#0b1c31;border:none;color:#76d0ff}
-.active{background:#1e3c5a}
+.top{
+display:flex;
+gap:10px;
+margin-bottom:20px;
+}
 
-.card{background:#0b1c31;padding:10px;margin:10px 0;border-radius:10px}
+button{
+background:#0b1c31;
+color:#76d0ff;
+border:none;
+padding:10px;
+border-radius:8px;
+cursor:pointer;
+}
 
-.progress{height:10px;background:#333;border-radius:10px}
-.bar{height:10px;background:#33b7ff;border-radius:10px}
+.active{
+background:#33b7ff;
+color:black;
+}
 
-img{width:40px;height:40px}
+.card{
+background:#0b1c31;
+border:1px solid rgba(255,255,255,0.1);
+border-radius:12px;
+padding:10px;
+margin-bottom:10px;
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+img{
+width:50px;
+height:50px;
+object-fit:contain;
+}
+
+.progress{
+height:8px;
+background:#222;
+border-radius:10px;
+margin-top:5px;
+}
+
+.bar{
+height:8px;
+background:#33b7ff;
+border-radius:10px;
+}
+
+.title{
+color:#f2c96b;
+font-size:22px;
+margin-bottom:10px;
+}
+
+select,input{
+padding:8px;
+border-radius:6px;
+border:none;
+margin:5px;
+}
 </style>
+
 </head>
 
 <body>
 
 <div class="container">
 
-<h1>Nevesladia</h1>
-
-<button class="tab active" onclick="show('heroes')">Heroes</button>
-<button class="tab" onclick="show('tasks')">Linked Tasks</button>
+<div class="top">
+<button onclick="show('heroes')" class="active" id="btnH">Heroes</button>
+<button onclick="show('tasks')" id="btnT">Tasks</button>
+</div>
 
 <div id="heroes">
-<h2>Heroes</h2>
+
+<div class="title">Heroes</div>
 
 <input id="name" placeholder="Nome">
 <input id="level" placeholder="Level">
@@ -39,11 +99,12 @@ img{width:40px;height:40px}
 <button onclick="addHero()">Salvar</button>
 
 <div id="heroList"></div>
+
 </div>
 
 <div id="tasks" style="display:none">
 
-<h2>Linked Tasks</h2>
+<div class="title">Linked Tasks</div>
 
 <select id="heroSelect" onchange="changeHero()"></select>
 
@@ -57,17 +118,23 @@ img{width:40px;height:40px}
 
 let heroes = JSON.parse(localStorage.getItem("heroes")||"[]");
 let progress = JSON.parse(localStorage.getItem("progress")||"{}");
-let currentHero = localStorage.getItem("currentHero")||"";
+let currentHero = localStorage.getItem("hero")||"";
 
 function save(){
 localStorage.setItem("heroes",JSON.stringify(heroes));
 localStorage.setItem("progress",JSON.stringify(progress));
-localStorage.setItem("currentHero",currentHero);
+localStorage.setItem("hero",currentHero);
 }
 
 function show(tab){
 document.getElementById("heroes").style.display = tab=="heroes"?"block":"none";
 document.getElementById("tasks").style.display = tab=="tasks"?"block":"none";
+
+btnH.classList.remove("active");
+btnT.classList.remove("active");
+
+if(tab=="heroes") btnH.classList.add("active");
+if(tab=="tasks") btnT.classList.add("active");
 }
 
 function addHero(){
@@ -84,7 +151,8 @@ let div=document.getElementById("heroList");
 div.innerHTML="";
 
 heroes.forEach(h=>{
-div.innerHTML+=`<div class="card">
+div.innerHTML+=`
+<div class="card">
 ${h.name} (lvl ${h.level})
 <button onclick="setHero('${h.name}')">Usar</button>
 </div>`;
@@ -102,9 +170,11 @@ renderTasks();
 function renderSelect(){
 let sel=document.getElementById("heroSelect");
 sel.innerHTML="";
+
 heroes.forEach(h=>{
 sel.innerHTML+=`<option value="${h.name}">${h.name}</option>`;
 });
+
 sel.value=currentHero;
 }
 
@@ -115,26 +185,26 @@ renderTasks();
 }
 
 const tasks = [
-{key:"goblin",name:"Goblin",qty:100,img:"IMAGENS/goblin.gif"},
-{key:"troll",name:"Troll",qty:100,img:"IMAGENS/troll.gif"},
-{key:"rotworm",name:"Rotworm",qty:200,img:"IMAGENS/rotworm.gif"},
-{key:"minotaur",name:"Minotaur",qty:200,img:"IMAGENS/minotaur.gif"},
-{key:"dwarf",name:"Dwarf",qty:300,img:"IMAGENS/dwarf.gif"},
-{key:"dworcs",name:"Dworcs",qty:300,img:"IMAGENS/dworc.gif"},
-{key:"elf",name:"Elf",qty:400,img:"IMAGENS/elf.gif"},
-{key:"dark",name:"Dark Cathedral",qty:400,img:"IMAGENS/dark.gif"},
-{key:"tombs",name:"Tombs",qty:800,img:"IMAGENS/tombs.gif"},
-{key:"scarab",name:"Scarab",qty:600,img:"IMAGENS/scarab.gif"},
-{key:"cyclops",name:"Cyclops",qty:500,img:"IMAGENS/cyclops.gif"},
-{key:"mutated",name:"Mutated Humans",qty:600,img:"IMAGENS/mutated.gif"},
-{key:"corym",name:"Coryms",qty:400,img:"IMAGENS/corym.gif"},
-{key:"banuta",name:"Banuta",qty:500,img:"IMAGENS/banuta.gif"},
-{key:"pirates",name:"Pirates",qty:700,img:"IMAGENS/pirate.gif"},
-{key:"barbarian",name:"Barbarians",qty:700,img:"IMAGENS/barbarian.gif"},
-{key:"djinn",name:"Djinn",qty:700,img:"IMAGENS/djinn.gif"},
-{key:"stonerefiner",name:"Stonerefiner",qty:500,img:"IMAGENS/stone.gif"},
-{key:"dragon",name:"Dragon",qty:800,img:"IMAGENS/dragon.gif"},
-{key:"oramond",name:"Oramond",qty:1000,img:"IMAGENS/oramond.gif"}
+{key:"goblin",name:"Goblin",qty:100,img:"https://static.wikia.nocookie.net/tibia/images/4/4f/Goblin.gif"},
+{key:"troll",name:"Troll",qty:100,img:"https://static.wikia.nocookie.net/tibia/images/a/a3/Troll.gif"},
+{key:"rotworm",name:"Rotworm",qty:200,img:"https://static.wikia.nocookie.net/tibia/images/3/30/Rotworm.gif"},
+{key:"minotaur",name:"Minotaur",qty:200,img:"https://static.wikia.nocookie.net/tibia/images/a/a5/Minotaur.gif"},
+{key:"dwarf",name:"Dwarf",qty:300,img:"https://static.wikia.nocookie.net/tibia/images/9/9a/Dwarf.gif"},
+{key:"dworcs",name:"Dworcs",qty:300,img:"https://static.wikia.nocookie.net/tibia/images/8/8f/Dworc_Fleshhunter.gif"},
+{key:"elf",name:"Elf",qty:400,img:"https://static.wikia.nocookie.net/tibia/images/3/38/Elf.gif"},
+{key:"dark",name:"Dark Cathedral",qty:400,img:"https://static.wikia.nocookie.net/tibia/images/5/5e/Dark_Apprentice.gif"},
+{key:"tombs",name:"Tombs",qty:800,img:"https://static.wikia.nocookie.net/tibia/images/c/c7/Ghoul.gif"},
+{key:"scarab",name:"Scarab",qty:600,img:"https://static.wikia.nocookie.net/tibia/images/7/7c/Scarab.gif"},
+{key:"cyclops",name:"Cyclops",qty:500,img:"https://static.wikia.nocookie.net/tibia/images/a/ac/Cyclops.gif"},
+{key:"mutated",name:"Mutated Humans",qty:600,img:"https://static.wikia.nocookie.net/tibia/images/6/6a/Mutated_Human.gif"},
+{key:"corym",name:"Coryms",qty:400,img:"https://static.wikia.nocookie.net/tibia/images/2/2a/Corym_Skirmisher.gif"},
+{key:"banuta",name:"Banuta",qty:500,img:"https://static.wikia.nocookie.net/tibia/images/2/21/Kongra.gif"},
+{key:"pirates",name:"Pirates",qty:700,img:"https://static.wikia.nocookie.net/tibia/images/3/3b/Pirate_Marauder.gif"},
+{key:"barbarian",name:"Barbarians",qty:700,img:"https://static.wikia.nocookie.net/tibia/images/6/6b/Barbarian_Headsplitter.gif"},
+{key:"djinn",name:"Djinn",qty:700,img:"https://static.wikia.nocookie.net/tibia/images/7/70/Marid.gif"},
+{key:"stonerefiner",name:"Stonerefiner",qty:500,img:"https://static.wikia.nocookie.net/tibia/images/5/50/Stone_Golem.gif"},
+{key:"dragon",name:"Dragon",qty:800,img:"https://static.wikia.nocookie.net/tibia/images/e/ef/Dragon.gif"},
+{key:"oramond",name:"Oramond",qty:1000,img:"https://static.wikia.nocookie.net/tibia/images/6/62/Minotaur_Amazon.gif"}
 ];
 
 function renderTasks(){
@@ -151,6 +221,9 @@ div.innerHTML+=`
 <div class="card">
 
 <img src="${t.img}" onerror="this.style.display='none'">
+
+<div style="flex:1">
+
 <b>${t.name}</b>
 
 <div>${val}/${t.qty} (${pct}%)</div>
@@ -160,6 +233,8 @@ div.innerHTML+=`
 </div>
 
 <button onclick="edit('${t.key}',${t.qty})">✏️</button>
+
+</div>
 
 </div>
 `;
